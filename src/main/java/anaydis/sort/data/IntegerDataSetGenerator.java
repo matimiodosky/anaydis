@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-public class IntegerDataSerGenerator implements DataSetGenerator<Integer> {
+public class IntegerDataSetGenerator implements DataSetGenerator<Integer> {
 
     private static final int RANDOM_LIMIT = 100;
     @NotNull

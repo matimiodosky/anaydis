@@ -1,18 +1,19 @@
-package anaydis.sort.Provider;
-
-import anaydis.sort.*;
+package anaydis.sort;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-public class SorterProvider implements anaydis.sort.provider.SorterProvider {
+class SorterProvider implements anaydis.sort.provider.SorterProvider {
 
-    private Map<SorterType, Sorter> sorters = new EnumMap<>(SorterType.class);
+    private final Map<SorterType, Sorter> sorters;
 
-    public SorterProvider(){
-        BubleSorter bubleSorter = new BubleSorter();
-        sorters.put(bubleSorter.getType(), bubleSorter);
+    SorterProvider(){
+
+        sorters = new EnumMap<>(SorterType.class);
+
+        BubbleSorter bubbleSorter = new BubbleSorter();
+        sorters.put(bubbleSorter.getType(), bubbleSorter);
 
         SelectionSorter selectionSorter = new SelectionSorter();
         sorters.put(selectionSorter.getType(), selectionSorter);

@@ -4,9 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Comparator;
 import java.util.List;
 
-public class BubleSorter extends AbstractSorter {
+class BubbleSorter extends AbstractSorter {
 
-    public BubleSorter(){
+    BubbleSorter(){
         super(SorterType.BUBBLE);
     }
 

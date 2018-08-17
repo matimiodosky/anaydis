@@ -5,9 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Comparator;
 import java.util.List;
 
-public class InsertionSorter extends AbstractSorter {
+class InsertionSorter extends AbstractSorter {
 
-    public InsertionSorter(){
+    InsertionSorter(){
         super(SorterType.SELECTION);
     }
 
@@ -17,7 +17,7 @@ public class InsertionSorter extends AbstractSorter {
         for (int i = 0; i < n; i++) {
             for (int j = i; j > 0; j--) {
                 if(less(comparator, list, j, j-1)){
-                    excanche(list, j, j-1);
+                    exchange(list, j, j-1);
                 }else {
                     break;
                 }

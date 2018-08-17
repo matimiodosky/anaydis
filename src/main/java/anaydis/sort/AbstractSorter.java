@@ -10,7 +10,7 @@ import java.util.List;
  */
 abstract class AbstractSorter implements Sorter {
 
-    private SorterType sorterType;
+    private final SorterType sorterType;
 
     AbstractSorter(SorterType sorterType){
         this.sorterType = sorterType;
@@ -27,7 +27,7 @@ abstract class AbstractSorter implements Sorter {
         return comparator.compare(list.get(i), list.get(j)) < 0;
     }
 
-    <T> void excanche(List<T> list,int i, int j){
+    <T> void exchange(List<T> list, int i, int j){
         T temp = list.get(i);
         list.set(i, list.get(j));
         list.set(j, temp);
@@ -35,7 +35,7 @@ abstract class AbstractSorter implements Sorter {
 
     <T> void compareAndExchange (Comparator<T> comparator, List<T> list, int i, int j) {
         if (less(comparator, list, i, j)){
-            excanche(list, i, j);
+            exchange(list, i, j);
         }
     }
 }

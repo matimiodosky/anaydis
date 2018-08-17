@@ -5,9 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Comparator;
 import java.util.List;
 
-public class SelectionSorter extends AbstractSorter {
+class SelectionSorter extends AbstractSorter {
 
-    public SelectionSorter() {
+    SelectionSorter() {
         super(SorterType.SELECTION);
     }
 
@@ -21,7 +21,7 @@ public class SelectionSorter extends AbstractSorter {
                    min = j;
                 }
             }
-            excanche(list, i, min);
+            exchange(list, i, min);
         }
     }
 }
