@@ -22,7 +22,6 @@ class SorterProvider implements anaydis.sort.provider.SorterProvider {
         sorters.put(insertionSorter.getType(), insertionSorter);
     }
 
-
     @NotNull
     @Override
     public Iterable<Sorter> getAllSorters() {

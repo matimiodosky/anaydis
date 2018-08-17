@@ -17,7 +17,7 @@ class SelectionSorter extends AbstractSorter {
         for (int i = 0; i < n - 1; i++) {
             int min = i;
             for (int j = i; j < n; j++) {
-                if (less(comparator, list, min, j)){
+                if (less(comparator, list, j, min)){
                    min = j;
                 }
             }

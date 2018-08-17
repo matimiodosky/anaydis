@@ -8,7 +8,7 @@ import java.util.List;
 class InsertionSorter extends AbstractSorter {
 
     InsertionSorter(){
-        super(SorterType.SELECTION);
+        super(SorterType.INSERTION);
     }
 
     @Override
