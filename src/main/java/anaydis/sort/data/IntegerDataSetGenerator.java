@@ -6,12 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 public class IntegerDataSetGenerator implements DataSetGenerator<Integer> {
 
-    private static final int RANDOM_LIMIT = 100;
+    private static final int RANDOM_LIMIT = 10000;
     @NotNull
     @Override
     public List<Integer> createAscending(int length) {
         if (length <= 0) throw new IllegalArgumentException("Invalid length for data set: " + length);
-        List<Integer> integerList = new ArrayList<>();
+        List<Integer> integerList = new ArrayList<>(length);
         for (int i = 0; i < length; i++) {
             integerList.add(i);
         }
@@ -22,7 +22,7 @@ public class IntegerDataSetGenerator implements DataSetGenerator<Integer> {
     @Override
     public List<Integer> createDescending(int length) {
         if (length <= 0) throw new IllegalArgumentException("Invalid length for data set: " + length);
-        List<Integer> integerList = new ArrayList<>();
+        List<Integer> integerList = new ArrayList<>(length);
         for (int i = length; i > 0; i--) {
             integerList.add(i);
         }
@@ -33,7 +33,7 @@ public class IntegerDataSetGenerator implements DataSetGenerator<Integer> {
     @Override
     public List<Integer> createRandom(int length) {
         if (length <= 0) throw new IllegalArgumentException("Invalid length for data set: " + length);
-        List<Integer> integerList = new ArrayList<>();
+        List<Integer> integerList = new ArrayList<>(length);
         for (int i = length; i > 0; i--) {
             integerList.add((int) (Math.random() * RANDOM_LIMIT));
         }
@@ -43,6 +43,7 @@ public class IntegerDataSetGenerator implements DataSetGenerator<Integer> {
     @NotNull
     @Override
     public Comparator<Integer> getComparator() {
-        return Integer::compareTo;
+        return Comparator.naturalOrder();
     }
+
 }
