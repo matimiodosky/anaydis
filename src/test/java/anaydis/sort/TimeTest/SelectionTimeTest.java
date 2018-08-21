@@ -4,22 +4,19 @@ import anaydis.sort.SorterType;
 
 import java.util.List;
 
-public class BubbleTimeTest extends AbstractTimeTest {
-
-
+public class SelectionTimeTest extends AbstractTimeTest{
     @Override
     SorterType getType() {
-        return SorterType.BUBBLE;
+        return SorterType.SELECTION;
     }
 
     @Override
     public List<Integer> worstCaseDataSet(int n) {
-        return createIntegerDataSetGenerator().createDescending(n);
+        return null;
     }
 
     @Override
     public List<Integer> bestCaseDataSet(int n) {
-        return integerDataSetGenerator.createAscending(n);
+        return null;
     }
-
 }
