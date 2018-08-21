@@ -12,11 +12,11 @@ public class SelectionTimeTest extends AbstractTimeTest{
 
     @Override
     public List<Integer> worstCaseDataSet(int n) {
-        return null;
+        return integerDataSetGenerator.createDescending(n);
     }
 
     @Override
     public List<Integer> bestCaseDataSet(int n) {
-        return null;
+        return integerDataSetGenerator.createAscending(n);
     }
 }
