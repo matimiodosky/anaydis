@@ -6,7 +6,6 @@ import java.util.*;
 
 public class IntegerDataSetGenerator implements DataSetGenerator<Integer> {
 
-    private static final int RANDOM_LIMIT = 100000;
     @NotNull
     @Override
     public List<Integer> createAscending(int length) {

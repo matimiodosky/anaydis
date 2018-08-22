@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class SorterProvider implements anaydis.sort.provider.SorterProvider {
 
+    @NotNull
     private final Map<SorterType, Sorter> sorters;
 
     public SorterProvider(){

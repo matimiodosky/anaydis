@@ -1,13 +1,14 @@
 package anaydis.sort.data;
 
-import anaydis.sort.FullName;
+import anaydis.sort.demo.FullName;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class FullNameDataSetGenerator implements DataSetGenerator<FullName> {
 
-    private List<String> dictionary;
+    @NotNull
+    private final List<String> dictionary;
 
     public FullNameDataSetGenerator(){
         dictionary = initDictionary();
@@ -42,23 +43,13 @@ public class FullNameDataSetGenerator implements DataSetGenerator<FullName> {
 
     public Comparator<FullName> lastNameComparator(){
 
-        return new Comparator<FullName>() {
-            @Override
-            public int compare(FullName o1, FullName o2) {
-               return o1.getLastName().compareTo(o2.getLastName());
-            }
-        };
+        return Comparator.comparing(FullName::getLastName);
 
     }
 
     public Comparator<FullName> firstNameComparator(){
 
-        return new Comparator<FullName>() {
-            @Override
-            public int compare(FullName o1, FullName o2) {
-                return o1.getFirstName().compareTo(o2.getFirstName());
-            }
-        };
+        return Comparator.comparing(FullName::getFirstName);
 
     }
 
@@ -70,7 +61,7 @@ public class FullNameDataSetGenerator implements DataSetGenerator<FullName> {
     @NotNull
     @Override
     public Comparator<FullName> getComparator() {
-        return (o1, o2) -> (o1.getLastName() + o1.getFirstName()).compareTo(o2.getLastName() + o2.getFirstName());
+        return Comparator.comparing(o -> (o.getLastName() + o.getFirstName()));
     }
 
     private List<String> initDictionary() {

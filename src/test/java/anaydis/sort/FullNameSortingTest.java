@@ -2,6 +2,8 @@ package anaydis.sort;
 
 
 import anaydis.sort.data.FullNameDataSetGenerator;
+import anaydis.sort.demo.FullName;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,28 +14,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FullNameSortingTest {
 
-    private FullNameDataSetGenerator generator = new FullNameDataSetGenerator();
+    private final FullNameDataSetGenerator generator = new FullNameDataSetGenerator();
     /**
      * Insertion sorter selected for its performance capabilities over the other two implemented sorters.
      */
-    private Sorter sorter = new SorterProvider().getSorterForType(SorterType.INSERTION);
-    private Comparator<FullName> lastNameComparator = generator.lastNameComparator();
-    private Comparator<FullName> firstNameComparator = generator.firstNameComparator();
+    private final Sorter sorter = new SorterProvider().getSorterForType(SorterType.INSERTION);
+    private final Comparator<FullName> lastNameComparator = generator.lastNameComparator();
+    private final Comparator<FullName> firstNameComparator = generator.firstNameComparator();
     private static final int size = 73;
 
+
     @Test
-    public void test() {
+    public void testFullNameSorter(){
 
-        List<FullName> original = generator.createRandom(size);
-        List<FullName> sorted = new ArrayList<>(original);
+        testFromDataSet(generator.createRandom(size));
+        testFromDataSet(generator.createAscending(size));
+        testFromDataSet(generator.createDescending(size));
 
-        sorter.sort(lastNameComparator, original);
-        sorter.sort(firstNameComparator, original);
+    }
+
+    private void testFromDataSet(@NotNull List<FullName> dataSet) {
+
+        List<FullName> sorted = new ArrayList<>(dataSet);
+
+        sorter.sort(lastNameComparator, dataSet);
+        sorter.sort(firstNameComparator, dataSet);
 
         sorted.sort(lastNameComparator);
         sorted.sort(firstNameComparator);
 
-        assertThat(original).usingElementComparator(generator.getComparator()).containsExactlyElementsOf(sorted);
+        assertThat(dataSet).usingElementComparator(generator.getComparator()).containsExactlyElementsOf(sorted);
     }
 
 

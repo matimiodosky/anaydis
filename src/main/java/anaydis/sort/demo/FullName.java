@@ -1,9 +1,9 @@
-package anaydis.sort;
+package anaydis.sort.demo;
 
 public class FullName {
 
-    private String lastName;
-    private String firstName;
+    private final String lastName;
+    private final String firstName;
 
     public FullName(String lastName, String firstName) {
         this.lastName = lastName;

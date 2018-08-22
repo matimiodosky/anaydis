@@ -23,17 +23,17 @@ abstract class AbstractSorter implements Sorter {
         return sorterType;
     }
 
-    <T> boolean less(Comparator<T> comparator, List<T> list,int i,int j){
+    <T> boolean less(@NotNull Comparator<T> comparator, @NotNull List<T> list, int i, int j){
         return comparator.compare(list.get(i), list.get(j)) < 0;
     }
 
-    <T> void exchange(List<T> list, int i, int j){
+    <T> void exchange(@NotNull List<T> list, int i, int j){
         T temp = list.get(i);
         list.set(i, list.get(j));
         list.set(j, temp);
     }
 
-    <T> void compareAndExchange (Comparator<T> comparator, List<T> list, int i, int j) {
+    <T> void compareAndExchange (@NotNull Comparator<T> comparator, @NotNull List<T> list, int i, int j) {
         if (less(comparator, list, i, j)){
             exchange(list, i, j);
         }

@@ -1,49 +1,51 @@
-package anaydis.sort.TimeTest;
+package anaydis.sort.time;
 
 import anaydis.sort.Sorter;
 import anaydis.sort.SorterType;
 import anaydis.sort.data.DataSetGenerator;
 import anaydis.sort.data.IntegerDataSetGenerator;
 import anaydis.sort.provider.SorterProvider;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import java.util.Comparator;
 import java.util.List;
 
 abstract public class AbstractTimeTest {
 
-    DataSetGenerator<Integer> integerDataSetGenerator = createIntegerDataSetGenerator();
+    final DataSetGenerator<Integer> integerDataSetGenerator = createIntegerDataSetGenerator();
 
+    @NotNull
     abstract SorterType getType();
 
+    @NotNull
     DataSetGenerator<Integer> createIntegerDataSetGenerator() {
         return new IntegerDataSetGenerator();
     }
 
+    @NotNull
     private SorterProvider getSorterProvider() {
         return new anaydis.sort.SorterProvider();
     }
 
-    public abstract List<Integer> worstCaseDataSet(int n);
+    @NotNull
+    protected abstract List<Integer> worstCaseDataSet(int n);
 
      private List<Integer> averageCaseDataSet(int n){
         return integerDataSetGenerator.createRandom(n);
     }
 
-    public abstract List<Integer> bestCaseDataSet(int n);
+    @NotNull
+    protected abstract List<Integer> bestCaseDataSet(int n);
 
-     private void testWorst(int n, Sorter sorter){
+     private void testWorst(int n, @NotNull Sorter sorter){
          System.out.println(n);
          System.out.println(getType().toString());
          System.out.println("worst: ");
 
          List<Integer> dataSet = worstCaseDataSet(n);
-         if (dataSet != null) {
-             long init = System.currentTimeMillis();
-             sorter.sort(Comparator.naturalOrder(), dataSet);
-             System.out.println(System.currentTimeMillis() - init);
-         }else {
-             System.out.println("No worst case");
-         }
+         long init = System.currentTimeMillis();
+         sorter.sort(Comparator.naturalOrder(), dataSet);
+         System.out.println(System.currentTimeMillis() - init);
      }
 
     private void testAverage(int n, Sorter sorter) {
@@ -54,18 +56,13 @@ abstract public class AbstractTimeTest {
         System.out.println(System.currentTimeMillis() - init);
     }
 
-    private void testBest(int n, Sorter sorter){
+    private void testBest(int n, @NotNull Sorter sorter){
         System.out.println("best: ");
 
         List<Integer> dataSet = bestCaseDataSet(n);
-        if (dataSet != null) {
-            long init = System.currentTimeMillis();
-            sorter.sort(Comparator.naturalOrder(), dataSet);
-            System.out.println(System.currentTimeMillis() - init);
-        }
-        else {
-            System.out.println("No best case");
-        }
+        long init = System.currentTimeMillis();
+        sorter.sort(Comparator.naturalOrder(), dataSet);
+        System.out.println(System.currentTimeMillis() - init);
     }
 
     /**
@@ -75,17 +72,19 @@ abstract public class AbstractTimeTest {
      * case, null is return from worstCaseDataSet(n) and bestCaseDataSet(n).
      * The test runs for every n in ns array.
      */
+
     @Test
     public void timeTest(){
-         Sorter sorter = getSorterProvider().getSorterForType(getType());
 
-         int[] ns = {100, 1000, 5000, 10000, 50000};
+            Sorter sorter = getSorterProvider().getSorterForType(getType());
 
-         for (int n : ns) {
-             testWorst(n, sorter);
-             testAverage(n, sorter);
-             testBest(n, sorter);
-         }
+            int[] ns = {100, 1000, 5000, 10000, 50000};
+
+            for (int n : ns) {
+                testWorst(n, sorter);
+                testAverage(n, sorter);
+                testBest(n, sorter);
+            }
      }
 
 }

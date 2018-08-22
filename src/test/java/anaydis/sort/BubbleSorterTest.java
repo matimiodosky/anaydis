@@ -1,12 +1,10 @@
 package anaydis.sort;
 
-import anaydis.sort.provider.SorterProvider;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.jetbrains.annotations.NotNull;
 
 public class BubbleSorterTest extends SorterTest {
 
+    @NotNull
     @Override
     SorterType getType() {
         return SorterType.BUBBLE;

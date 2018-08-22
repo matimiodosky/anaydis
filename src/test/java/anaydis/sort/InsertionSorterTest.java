@@ -1,9 +1,10 @@
 package anaydis.sort;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.jetbrains.annotations.NotNull;
 
 public class InsertionSorterTest extends SorterTest {
 
+    @NotNull
     @Override
     SorterType getType() {
         return SorterType.INSERTION;
