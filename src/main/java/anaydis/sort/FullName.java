@@ -1,6 +1,4 @@
-package anaydis.sort.Example;
-
-import anaydis.sort.data.StringDataSetGenerator;
+package anaydis.sort;
 
 public class FullName {
 

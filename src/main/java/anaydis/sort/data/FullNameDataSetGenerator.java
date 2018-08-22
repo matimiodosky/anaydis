@@ -1,6 +1,6 @@
 package anaydis.sort.data;
 
-import anaydis.sort.Example.FullName;
+import anaydis.sort.FullName;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -65,12 +65,12 @@ public class FullNameDataSetGenerator implements DataSetGenerator<FullName> {
 
     /**
      *
-     * @return default comparator: lastNameComparator().
+     * @return default comparator: lastName + firstName
      */
     @NotNull
     @Override
     public Comparator<FullName> getComparator() {
-        return lastNameComparator();
+        return (o1, o2) -> (o1.getLastName() + o1.getFirstName()).compareTo(o2.getLastName() + o2.getFirstName());
     }
 
     private List<String> initDictionary() {
