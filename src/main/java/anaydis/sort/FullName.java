@@ -1,4 +1,4 @@
-package anaydis.sort.demo;
+package anaydis.sort;
 
 public class FullName {
 

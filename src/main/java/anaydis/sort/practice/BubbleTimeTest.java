@@ -1,4 +1,4 @@
-package anaydis.sort.demo.practice;
+package anaydis.sort.practice;
 
 import anaydis.sort.SorterType;
 import org.jetbrains.annotations.NotNull;
