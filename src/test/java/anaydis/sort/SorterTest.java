@@ -10,6 +10,7 @@ import org.junit.Test;
 /**
  * Sorter tests should subclass this abstract implementation
  */
+
 public abstract class SorterTest extends AbstractSorterTest {
 
     @NotNull
@@ -29,15 +30,16 @@ public abstract class SorterTest extends AbstractSorterTest {
     }
 
     @Test
-    public void StringTestSorter(){
+    public void stringTestSorter(){
        testSorter(createStringDataSetGenerator(), getType(), 120);
     }
 
     @Test
-    public void IntegerTestSorter(){
+    public void integerTestSorter(){
         testSorter(createIntegerDataSetGenerator(), getType(), 500);
     }
 
     @NotNull
     abstract SorterType getType();
+
 }

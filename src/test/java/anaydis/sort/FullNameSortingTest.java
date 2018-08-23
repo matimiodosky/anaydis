@@ -46,6 +46,4 @@ public class FullNameSortingTest {
         assertThat(dataSet).usingElementComparator(generator.getComparator()).containsExactlyElementsOf(sorted);
     }
 
-
-
 }

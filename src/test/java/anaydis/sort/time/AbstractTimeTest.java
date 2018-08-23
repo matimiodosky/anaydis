@@ -30,14 +30,14 @@ abstract public class AbstractTimeTest {
     @NotNull
     protected abstract List<Integer> worstCaseDataSet(int n);
 
-     private List<Integer> averageCaseDataSet(int n){
+    private List<Integer> averageCaseDataSet(int n){
         return integerDataSetGenerator.createRandom(n);
     }
 
     @NotNull
     protected abstract List<Integer> bestCaseDataSet(int n);
 
-     private void testWorst(int n, @NotNull Sorter sorter){
+    private void testWorst(int n, @NotNull Sorter sorter){
          System.out.println(n);
          System.out.println(getType().toString());
          System.out.println("worst: ");
@@ -73,7 +73,6 @@ abstract public class AbstractTimeTest {
      * The test runs for every n in ns array.
      */
 
-    @Test
     public void timeTest(){
 
             Sorter sorter = getSorterProvider().getSorterForType(getType());
