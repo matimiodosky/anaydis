@@ -1,15 +1,15 @@
-package anaydis.sort.time;
+package anaydis.sort.demo.practice;
 
 import anaydis.sort.SorterType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class SelectionTimeTest extends AbstractTimeTest{
+public class InsertionTimeTest extends AbstractTimeTest{
     @NotNull
     @Override
     SorterType getType() {
-        return SorterType.SELECTION;
+        return SorterType.INSERTION;
     }
 
     @NotNull

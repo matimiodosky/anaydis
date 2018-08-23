@@ -1,4 +1,4 @@
-package anaydis.sort.time;
+package anaydis.sort.demo.practice;
 
 import anaydis.sort.Sorter;
 import anaydis.sort.SorterType;
@@ -6,7 +6,6 @@ import anaydis.sort.data.DataSetGenerator;
 import anaydis.sort.data.IntegerDataSetGenerator;
 import anaydis.sort.provider.SorterProvider;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
 import java.util.Comparator;
 import java.util.List;
 

@@ -1,23 +1,21 @@
-package anaydis.sort.time;
+package anaydis.sort.demo.practice;
 
 import anaydis.sort.SorterType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class BubbleTimeTest extends AbstractTimeTest {
-
-
+public class SelectionTimeTest extends AbstractTimeTest{
     @NotNull
     @Override
     SorterType getType() {
-        return SorterType.BUBBLE;
+        return SorterType.SELECTION;
     }
 
     @NotNull
     @Override
     public List<Integer> worstCaseDataSet(int n) {
-        return createIntegerDataSetGenerator().createDescending(n);
+        return integerDataSetGenerator.createDescending(n);
     }
 
     @NotNull
@@ -25,5 +23,4 @@ public class BubbleTimeTest extends AbstractTimeTest {
     public List<Integer> bestCaseDataSet(int n) {
         return integerDataSetGenerator.createAscending(n);
     }
-
 }
