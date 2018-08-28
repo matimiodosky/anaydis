@@ -7,10 +7,6 @@ import java.util.List;
 
 class InsertionSorter extends AbstractSorter {
 
-    InsertionSorter(){
-        super(SorterType.INSERTION);
-    }
-
     @Override
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list) {
         int n  = list.size();
@@ -23,5 +19,11 @@ class InsertionSorter extends AbstractSorter {
                 }
             }
         }
+    }
+
+    @NotNull
+    @Override
+    public SorterType getType() {
+        return SorterType.INSERTION;
     }
 }

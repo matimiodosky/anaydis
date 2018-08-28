@@ -1,14 +1,11 @@
 package anaydis.sort;
 
+import anaydis.sort.gui.SorterListener;
 import org.jetbrains.annotations.NotNull;
 import java.util.Comparator;
 import java.util.List;
 
 class BubbleSorter extends AbstractSorter {
-
-    BubbleSorter(){
-        super(SorterType.BUBBLE);
-    }
 
     @Override
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list) {
@@ -19,5 +16,11 @@ class BubbleSorter extends AbstractSorter {
                 compareAndExchange(comparator, list, j, j-1);
             }
         }
+    }
+
+    @NotNull
+    @Override
+    public SorterType getType() {
+        return SorterType.BUBBLE;
     }
 }

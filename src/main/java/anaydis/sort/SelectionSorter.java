@@ -7,10 +7,6 @@ import java.util.List;
 
 class SelectionSorter extends AbstractSorter {
 
-    SelectionSorter() {
-        super(SorterType.SELECTION);
-    }
-
     @Override
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list) {
         int n = list.size();
@@ -23,5 +19,11 @@ class SelectionSorter extends AbstractSorter {
             }
             exchange(list, i, min);
         }
+    }
+
+    @NotNull
+    @Override
+    public SorterType getType() {
+        return SorterType.SELECTION;
     }
 }
