@@ -1,7 +1,5 @@
 package anaydis.sort;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,4 +24,5 @@ class SelectionSorter extends AbstractSorter {
     public SorterType getType() {
         return SorterType.SELECTION;
     }
+
 }
