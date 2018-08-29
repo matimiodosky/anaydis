@@ -4,12 +4,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class SorterProvider implements anaydis.sort.provider.SorterProvider {
+public class SorterProviderImp implements anaydis.sort.provider.SorterProvider {
 
     @NotNull
     private final Map<SorterType, Sorter> sorters;
 
-    public SorterProvider(){
+    public SorterProviderImp(){
 
         sorters = new EnumMap<>(SorterType.class);
 

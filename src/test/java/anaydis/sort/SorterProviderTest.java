@@ -10,6 +10,6 @@ public class SorterProviderTest extends AbstractSorterProviderTest {
 
     @NotNull
     @Override protected SorterProvider createSorterProvider() {
-        return new anaydis.sort.SorterProvider();
+        return new SorterProviderImp();
     }
 }

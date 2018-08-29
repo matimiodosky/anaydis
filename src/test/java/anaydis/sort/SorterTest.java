@@ -26,7 +26,7 @@ public abstract class SorterTest extends AbstractSorterTest {
     @NotNull
     @Override
     protected SorterProvider getSorterProvider() {
-        return new anaydis.sort.SorterProvider();
+        return new SorterProviderImp();
     }
 
     @Test

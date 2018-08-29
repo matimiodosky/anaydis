@@ -1,4 +1,4 @@
-package anaydis.sort.practice;
+package anaydis.sort.practice.timeTest;
 
 import anaydis.sort.Sorter;
 import anaydis.sort.SorterType;
@@ -6,10 +6,20 @@ import anaydis.sort.data.DataSetGenerator;
 import anaydis.sort.data.IntegerDataSetGenerator;
 import anaydis.sort.provider.SorterProvider;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 abstract public class AbstractTimeTest {
+
+    static List<AbstractTimeTest> getAllTesters(){
+        List<AbstractTimeTest> list = new ArrayList<>();
+        list.add(new BubbleTimeTest());
+        list.add(new InsertionTimeTest());
+        list.add(new SelectionTimeTest());
+        return list;
+    }
 
     final DataSetGenerator<Integer> integerDataSetGenerator = createIntegerDataSetGenerator();
 
@@ -23,7 +33,7 @@ abstract public class AbstractTimeTest {
 
     @NotNull
     private SorterProvider getSorterProvider() {
-        return new anaydis.sort.SorterProvider();
+        return new anaydis.sort.SorterProviderImp();
     }
 
     @NotNull
@@ -72,7 +82,7 @@ abstract public class AbstractTimeTest {
      * The test runs for every n in ns array.
      */
 
-    public void timeTest(){
+    void timeTest(){
 
             Sorter sorter = getSorterProvider().getSorterForType(getType());
 
