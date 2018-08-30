@@ -21,6 +21,9 @@ public class SorterProviderImp implements anaydis.sort.provider.SorterProvider {
 
         InsertionSorter insertionSorter  = new InsertionSorter();
         sorters.put(insertionSorter.getType(), insertionSorter);
+
+        HSorter hSorter = new HSorter();
+        sorters.put(hSorter.getType(), hSorter);
     }
 
     @NotNull
