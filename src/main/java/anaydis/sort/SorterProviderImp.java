@@ -24,6 +24,10 @@ public class SorterProviderImp implements anaydis.sort.provider.SorterProvider {
 
         HSorter hSorter = new HSorter();
         sorters.put(hSorter.getType(), hSorter);
+
+        ShellSorter shellSorter = new ShellSorter();
+        sorters.put(shellSorter.getType(), shellSorter);
+
     }
 
     @NotNull
