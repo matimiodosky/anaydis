@@ -13,10 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 public class HSorterTest{
 
-    private HSorter sorter = (HSorter) new SorterProviderImp().getSorterForType(SorterType.H);
+    private final HSorter sorter = (HSorter) new SorterProviderImp().getSorterForType(SorterType.H);
 
     @NotNull
-    protected DataSetGenerator<String> createStringDataSetGenerator() {
+    private DataSetGenerator<String> createStringDataSetGenerator() {
         return new StringDataSetGenerator();
     }
 
@@ -49,7 +49,7 @@ public class HSorterTest{
         testDataSet(createStringDataSetGenerator().createRandom(30));
 
     }
-    private <T extends Comparable<T>> void testDataSet(List<T> dataSet) {
+    private <T extends Comparable<T>> void testDataSet(@NotNull List<T> dataSet) {
         sorter.sort(Comparator.naturalOrder(), dataSet);
         int h = sorter.getH();
         for (int i = 0; i < dataSet.size(); i++) {

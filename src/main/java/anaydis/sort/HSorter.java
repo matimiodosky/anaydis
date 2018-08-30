@@ -1,12 +1,11 @@
 package anaydis.sort;
 
-import anaydis.sort.gui.ObservableSorter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class HSorter extends AbstractSorter{
+class HSorter extends AbstractSorter{
 
     private int h;
 
@@ -25,7 +24,7 @@ public class HSorter extends AbstractSorter{
         return SorterType.H;
     }
 
-    public <T> void sort(Comparator<T> comparator, List<T> list, int h) {
+    public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list, int h) {
         this.h = h;
         int n  = list.size();
         for (int i = 0; i < n; i++) {

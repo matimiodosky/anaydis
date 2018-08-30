@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-abstract public class AbstractTimeTest {
+abstract class AbstractTimeTest {
 
+    @NotNull
     static List<AbstractTimeTest> getAllTesters(){
         List<AbstractTimeTest> list = new ArrayList<>();
         list.add(new BubbleTimeTest());

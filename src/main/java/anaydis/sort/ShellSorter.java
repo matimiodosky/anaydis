@@ -1,16 +1,14 @@
 package anaydis.sort;
 
-import anaydis.sort.provider.SorterProvider;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 public class ShellSorter extends AbstractSorter {
 
-    private static int[] generateSequence(int size){
+    @NotNull
+    private static int[] generateDefaultSequence(int size){
         //1, 8, 23, 77, 281...
         int maxi = 1;
 
@@ -35,10 +33,15 @@ public class ShellSorter extends AbstractSorter {
 
     @Override
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list) {
+       sort(comparator, list, generateDefaultSequence(list.size()));
+    }
+
+    public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list, @NotNull int[] gaps){
         HSorter hSorter = (HSorter) new SorterProviderImp().getSorterForType(SorterType.H);
-        int[] gaps = generateSequence(list.size());
         for (int gap : gaps) {
-            hSorter.sort(comparator, list, gap);
+            if(gap < list.size()) {
+                hSorter.sort(comparator, list, gap);
+            }
         }
     }
 
