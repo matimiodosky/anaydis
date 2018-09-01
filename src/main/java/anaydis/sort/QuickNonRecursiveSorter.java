@@ -36,6 +36,7 @@ public class QuickNonRecursiveSorter extends QuickSorter {
         }
     }
 
+    @NotNull
     @Override
     public SorterType getType() {
         return SorterType.QUICK_NON_RECURSIVE;

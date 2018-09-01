@@ -15,7 +15,7 @@ public class QuickCutSorter extends QuickSorter {
                 getSorterForType(SorterType.INSERTION).sort(comparator, list);
     }
 
-    private <T> void quickSort(Comparator<T> comparator, List<T> list, int l, int r) {
+    private <T> void quickSort(@NotNull Comparator<T> comparator, @NotNull List<T> list, int l, int r) {
         if(r - l <= M) return;
         int i = partition(list, comparator, l, r);
         quickSort(comparator, list, l, i -1);

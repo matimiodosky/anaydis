@@ -13,7 +13,7 @@ public class QuickMedOfThreeSorter extends QuickSorter{
     }
 
 
-    private <T> void sort(Comparator<T> comparator, List<T> list, int lo, int hi) {
+    private <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list, int lo, int hi) {
         if (hi <= lo) return;
         exchange(list, (lo + hi)/2, hi - 1);
         compareAndExchange(comparator, list, lo, hi-1);
