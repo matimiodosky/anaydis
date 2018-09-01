@@ -47,6 +47,9 @@ public class SorterProviderImpl implements anaydis.sort.provider.SorterProvider 
         QuickCutSorter quickCutSorter = new QuickCutSorter();
         sorters.put(quickCutSorter.getType(), quickCutSorter);
 
+        QuickMedOfThreeSorter quickMedOfThreeSorter = new QuickMedOfThreeSorter();
+        sorters.put(quickMedOfThreeSorter.getType(), quickMedOfThreeSorter);
+
     }
 
     @NotNull
