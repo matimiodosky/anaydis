@@ -1,15 +1,25 @@
 package anaydis.sort;
+import anaydis.sort.provider.SorterProvider;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.EnumMap;
 import java.util.Map;
 
-public class SorterProviderImp implements anaydis.sort.provider.SorterProvider {
+public class SorterProviderImpl implements anaydis.sort.provider.SorterProvider {
 
     @NotNull
     private final Map<SorterType, Sorter> sorters;
 
-    public SorterProviderImp(){
+    private static SorterProvider instance;
+
+    public static SorterProvider getInstance(){
+
+        if(instance == null){
+            instance = new SorterProviderImpl();
+        }
+        return instance;
+    }
+
+    public SorterProviderImpl(){
 
         sorters = new EnumMap<>(SorterType.class);
 
@@ -28,6 +38,9 @@ public class SorterProviderImp implements anaydis.sort.provider.SorterProvider {
         ShellSorter shellSorter = new ShellSorter();
         sorters.put(shellSorter.getType(), shellSorter);
 
+        QuickSorter quickSorter = new QuickSorter();
+        sorters.put(quickSorter.getType(), quickSorter);
+
     }
 
     @NotNull
@@ -44,4 +57,5 @@ public class SorterProviderImp implements anaydis.sort.provider.SorterProvider {
         if (sorter == null) throw new IllegalArgumentException("No implementation for such sorter: " + type);
         return sorter;
     }
+
 }

@@ -10,6 +10,6 @@ public class SorterProviderTest extends AbstractSorterProviderTest {
 
     @NotNull
     @Override protected SorterProvider createSorterProvider() {
-        return new SorterProviderImp();
+        return SorterProviderImpl.getInstance();
     }
 }

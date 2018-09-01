@@ -53,9 +53,7 @@ public class FullNameDataSetGenerator implements DataSetGenerator<FullName> {
 
     }
 
-
     /**
-     *
      * @return default comparator: lastName + firstName
      */
     @NotNull

@@ -1,7 +1,6 @@
 package anaydis.sort;
 
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Comparator;
 import java.util.List;
 
@@ -9,11 +8,10 @@ public class ShellSorter extends AbstractSorter {
 
     @NotNull
     private static int[] generateDefaultSequence(int size){
-        //1, 8, 23, 77, 281...
         int maxi = 1;
 
         //calculate max valid gap.
-        while ( gap(maxi+1) < size){
+        while (gap(maxi+1) < size){
             maxi++;
         }
 
@@ -28,6 +26,7 @@ public class ShellSorter extends AbstractSorter {
 
     private static int gap(int k){
         // Sedgewick, 1986
+        //todo replace with the best
         return (int) (Math.pow(4, k) + 3 * Math.pow(2, k-1) + 1);
     }
 
@@ -37,10 +36,10 @@ public class ShellSorter extends AbstractSorter {
     }
 
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list, @NotNull int[] gaps){
-        HSorter hSorter = (HSorter) new SorterProviderImp().getSorterForType(SorterType.H);
+        HSorter sorter = (HSorter) SorterProviderImpl.getInstance().getSorterForType(SorterType.H);
         for (int gap : gaps) {
             if(gap < list.size()) {
-                hSorter.sort(comparator, list, gap);
+                sorter.sort(comparator, list, gap);
             }
         }
     }

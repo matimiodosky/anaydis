@@ -26,7 +26,7 @@ public abstract class SorterTest extends AbstractSorterTest {
     @NotNull
     @Override
     protected SorterProvider getSorterProvider() {
-        return new SorterProviderImp();
+        return SorterProviderImpl.getInstance();
     }
 
     @Test

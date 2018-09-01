@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class HSorterTest{
 
-    private final HSorter sorter = (HSorter) new SorterProviderImp().getSorterForType(SorterType.H);
+    private final HSorter sorter = (HSorter) SorterProviderImpl.getInstance().getSorterForType(SorterType.H);
 
     @NotNull
     private DataSetGenerator<String> createStringDataSetGenerator() {

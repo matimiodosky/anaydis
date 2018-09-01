@@ -1,7 +1,7 @@
 package anaydis.sort.practice.timeTest;
 
 import anaydis.sort.ShellSorter;
-import anaydis.sort.SorterProviderImp;
+import anaydis.sort.SorterProviderImpl;
 import anaydis.sort.SorterType;
 import anaydis.sort.data.DataSetGenerator;
 import anaydis.sort.data.IntegerDataSetGenerator;
@@ -14,7 +14,7 @@ class ShellSortTimeTest {
 
     private static void testSequence(@NotNull DataSetGenerator<Integer> dataSetGenerator, @NotNull int[] sequence, int[] ns){
 
-        ShellSorter sorter = (ShellSorter) new SorterProviderImp().getSorterForType(SorterType.SHELL);
+        ShellSorter sorter = (ShellSorter) SorterProviderImpl.getInstance().getSorterForType(SorterType.SHELL);
         for (int n:ns){
             List<Integer> list = dataSetGenerator.createRandom(n);
             long init = System.currentTimeMillis();

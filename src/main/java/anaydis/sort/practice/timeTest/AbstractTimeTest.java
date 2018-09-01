@@ -1,6 +1,7 @@
 package anaydis.sort.practice.timeTest;
 
 import anaydis.sort.Sorter;
+import anaydis.sort.SorterProviderImpl;
 import anaydis.sort.SorterType;
 import anaydis.sort.data.DataSetGenerator;
 import anaydis.sort.data.IntegerDataSetGenerator;
@@ -34,7 +35,7 @@ abstract class AbstractTimeTest {
 
     @NotNull
     private SorterProvider getSorterProvider() {
-        return new anaydis.sort.SorterProviderImp();
+        return SorterProviderImpl.getInstance();
     }
 
     @NotNull
