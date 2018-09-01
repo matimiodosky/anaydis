@@ -44,6 +44,9 @@ public class SorterProviderImpl implements anaydis.sort.provider.SorterProvider 
         QuickNonRecursiveSorter quickNonRecursiveSorter = new QuickNonRecursiveSorter();
         sorters.put(quickNonRecursiveSorter.getType(), quickNonRecursiveSorter);
 
+        QuickCutSorter quickCutSorter = new QuickCutSorter();
+        sorters.put(quickCutSorter.getType(), quickCutSorter);
+
     }
 
     @NotNull
