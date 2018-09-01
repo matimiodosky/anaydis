@@ -1,10 +1,9 @@
 package anaydis.sort;
-import anaydis.sort.data.IntegerDataSetGenerator;
 import org.jetbrains.annotations.NotNull;
 import java.util.Comparator;
 import java.util.List;
 
-public class QuickSorter extends AbstractSorter {
+class QuickSorter extends AbstractSorter {
 
   protected <T>  int partition(List<T> list, Comparator<T> comparator, int lo, int hi){
       int i = lo -1;

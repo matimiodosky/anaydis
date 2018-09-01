@@ -7,6 +7,12 @@ import java.util.List;
 
 public class QuickMedOfThreeSorter extends QuickSorter{
 
+    @Override
+    public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list) {
+        sort(comparator, list, 0, list.size() - 1);
+    }
+
+
     private <T> void sort(Comparator<T> comparator, List<T> list, int lo, int hi) {
         if (hi <= lo) return;
         exchange(list, (lo + hi)/2, hi - 1);

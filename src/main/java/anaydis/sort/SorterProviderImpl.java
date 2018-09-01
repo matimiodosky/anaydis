@@ -19,7 +19,7 @@ public class SorterProviderImpl implements anaydis.sort.provider.SorterProvider 
         return instance;
     }
 
-    public SorterProviderImpl(){
+    private SorterProviderImpl(){
 
         sorters = new EnumMap<>(SorterType.class);
 
