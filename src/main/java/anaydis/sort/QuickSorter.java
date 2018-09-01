@@ -6,7 +6,7 @@ import java.util.List;
 
 public class QuickSorter extends AbstractSorter {
 
-  private <T>  int partition(List<T> list, Comparator<T> comparator, int lo, int hi){
+  protected <T>  int partition(List<T> list, Comparator<T> comparator, int lo, int hi){
       int i = lo -1;
       int j = hi;
 
