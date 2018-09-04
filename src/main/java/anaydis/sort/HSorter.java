@@ -11,7 +11,7 @@ class HSorter extends AbstractSorter{
 
     @Override
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list) {
-        sort(comparator, list, list.size() / 5);
+        sort(comparator, list, 4);
     }
 
     int getH() {

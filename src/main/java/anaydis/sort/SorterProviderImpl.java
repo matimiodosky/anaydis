@@ -19,6 +19,7 @@ public class SorterProviderImpl implements anaydis.sort.provider.SorterProvider 
         return instance;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public SorterProviderImpl(){
 
         sorters = new EnumMap<>(SorterType.class);
@@ -50,6 +51,8 @@ public class SorterProviderImpl implements anaydis.sort.provider.SorterProvider 
         QuickMedOfThreeSorter quickMedOfThreeSorter = new QuickMedOfThreeSorter();
         sorters.put(quickMedOfThreeSorter.getType(), quickMedOfThreeSorter);
 
+        QuickThreePartitionSorter quickThreePartitionSorter = new QuickThreePartitionSorter();
+        sorters.put(quickThreePartitionSorter.getType(), quickThreePartitionSorter);
     }
 
     @NotNull

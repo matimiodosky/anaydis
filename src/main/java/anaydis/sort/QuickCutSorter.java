@@ -1,4 +1,5 @@
 package anaydis.sort;
+import anaydis.sort.gui.SorterListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
@@ -7,12 +8,23 @@ import java.util.List;
 public class QuickCutSorter extends QuickSorter {
 
     private static final int M = 9;
+    private InsertionSorter insertionSorter;
+
+
+    QuickCutSorter() {
+        insertionSorter = new InsertionSorter();
+    }
+
+    @Override
+    public void addSorterListener(@NotNull SorterListener listener) {
+        super.addSorterListener(listener);
+        insertionSorter.addSorterListener(listener);
+    }
 
     @Override
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list) {
         quickSort(comparator, list, 0 , list.size() -1 );
-        SorterProviderImpl.getInstance().
-                getSorterForType(SorterType.INSERTION).sort(comparator, list);
+        insertionSorter.sort(comparator, list);
     }
 
     private <T> void quickSort(@NotNull Comparator<T> comparator, @NotNull List<T> list, int l, int r) {

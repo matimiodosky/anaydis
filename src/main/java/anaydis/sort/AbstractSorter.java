@@ -13,6 +13,8 @@ import java.util.List;
  */
 abstract class AbstractSorter implements Sorter, ObservableSorter {
 
+
+
     private final List<SorterListener> sorterListeners = new ArrayList<>();
 
     <T> boolean less(@NotNull Comparator<T> comparator, @NotNull List<T> list, int i, int j) {
@@ -41,7 +43,7 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
 
     private void notifyLess(int j, int i) {
         for (SorterListener sorterListener : sorterListeners) {
-            sorterListener.greater(i, j);
+            sorterListener.greater(j, i);
         }
     }
 
@@ -56,4 +58,14 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         sorterListeners.remove(listener);
     }
 
+    protected <T> boolean equals(Comparator<T> comparator, List<T> list, int i, int j) {
+        notifyEquals(i, j);
+        return comparator.compare(list.get(i), list.get(j)) == 0;
+    }
+
+    private void notifyEquals(int i, int j) {
+        for (SorterListener sorterListener : sorterListeners) {
+            sorterListener.equals(i, j);
+        }
+    }
 }

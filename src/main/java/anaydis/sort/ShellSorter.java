@@ -1,25 +1,28 @@
 package anaydis.sort;
 
+import anaydis.sort.gui.SorterListener;
 import org.jetbrains.annotations.NotNull;
 import java.util.Comparator;
 import java.util.List;
 
 public class ShellSorter extends AbstractSorter {
 
+    private HSorter sorter;
+
+    ShellSorter() {
+        sorter = new HSorter();
+    }
+
     @NotNull
     private static int[] generateDefaultSequence(int size){
         int maxi = 1;
 
         //calculate max valid gap.
-        while (gap(maxi+1) < size){
-            maxi++;
-        }
+        while (gap(maxi+1) < size) maxi++;
 
         //build array with gaps values
         int[] gaps = new int[maxi + 1];
-        for (int j = maxi; j > 0 ; j--) {
-            gaps[maxi - j] = gap(j);
-        }
+        for (int j = maxi; j > 0 ; j--) gaps[maxi - j] = gap(j);
         gaps[gaps.length - 1] = 1;
         return gaps;
     }
@@ -31,17 +34,24 @@ public class ShellSorter extends AbstractSorter {
     }
 
     @Override
+    public void addSorterListener(@NotNull SorterListener listener) {
+        super.addSorterListener(listener);
+        sorter.addSorterListener(listener);
+    }
+
+    @Override
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list) {
        sort(comparator, list, generateDefaultSequence(list.size()));
     }
 
     public <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list, @NotNull int[] gaps){
-        HSorter sorter = (HSorter) SorterProviderImpl.getInstance().getSorterForType(SorterType.H);
+
         for (int gap : gaps) {
             if(gap < list.size()) {
                 sorter.sort(comparator, list, gap);
             }
         }
+
     }
 
     @NotNull
