@@ -35,13 +35,13 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         }
     }
 
-    private void notifySwap(int i, int j) {
+    public void notifySwap(int i, int j) {
         for (SorterListener sorterListener : sorterListeners) {
             sorterListener.swap(i, j);
         }
     }
 
-    private void notifyLess(int j, int i) {
+    public void notifyLess(int j, int i) {
         for (SorterListener sorterListener : sorterListeners) {
             sorterListener.greater(j, i);
         }
@@ -63,9 +63,13 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         return comparator.compare(list.get(i), list.get(j)) == 0;
     }
 
-    private void notifyEquals(int i, int j) {
+    public void notifyEquals(int i, int j) {
         for (SorterListener sorterListener : sorterListeners) {
             sorterListener.equals(i, j);
         }
+    }
+
+    public List<SorterListener> getSortersListeners(){
+        return sorterListeners;
     }
 }
