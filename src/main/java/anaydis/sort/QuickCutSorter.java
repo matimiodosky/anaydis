@@ -8,7 +8,8 @@ import java.util.List;
 public class QuickCutSorter extends QuickSorter {
 
     private static final int M = 9;
-    private InsertionSorter insertionSorter;
+    @NotNull
+    private final InsertionSorter insertionSorter;
 
 
     QuickCutSorter() {

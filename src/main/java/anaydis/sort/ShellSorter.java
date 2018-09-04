@@ -7,7 +7,8 @@ import java.util.List;
 
 public class ShellSorter extends AbstractSorter {
 
-    private HSorter sorter;
+    @NotNull
+    private final HSorter sorter;
 
     ShellSorter() {
         sorter = new HSorter();

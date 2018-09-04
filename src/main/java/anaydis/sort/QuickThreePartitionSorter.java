@@ -1,9 +1,7 @@
 package anaydis.sort;
 
-import anaydis.sort.data.StringDataSetGenerator;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class QuickThreePartitionSorter extends QuickSorter {
 
     }
 
-    private  <T> void sort(Comparator<T> comparator, List<T> list, int lo, int hi){
+    private  <T> void sort(@NotNull Comparator<T> comparator, @NotNull List<T> list, int lo, int hi){
         //p & q are both pivots
         if (hi <= lo) return;
         int i = lo-1, j = hi, p = lo-1, q = hi, k;

@@ -23,7 +23,7 @@ public class DataSetGeneratorTest extends AbstractDataSetGeneratorTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testExcededSize(){
+    public void testExceededSize(){
         createStringDataSetGenerator().createAscending(1000);
     }
 }

@@ -23,6 +23,7 @@ abstract class AbstractTimeTest {
         return list;
     }
 
+    @NotNull
     final DataSetGenerator<Integer> integerDataSetGenerator = createIntegerDataSetGenerator();
 
     @NotNull

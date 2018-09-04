@@ -58,7 +58,7 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         sorterListeners.remove(listener);
     }
 
-    protected <T> boolean equals(Comparator<T> comparator, List<T> list, int i, int j) {
+    <T> boolean equals(@NotNull Comparator<T> comparator, @NotNull List<T> list, int i, int j) {
         notifyEquals(i, j);
         return comparator.compare(list.get(i), list.get(j)) == 0;
     }
@@ -69,6 +69,7 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         }
     }
 
+    @NotNull
     public List<SorterListener> getSortersListeners(){
         return sorterListeners;
     }
