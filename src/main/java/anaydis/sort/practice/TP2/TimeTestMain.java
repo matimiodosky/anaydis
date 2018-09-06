@@ -1,4 +1,4 @@
-package anaydis.sort.practice.timeTest;
+package anaydis.sort.practice.TP2;
 
 class TimeTestMain {
     public static void main(String[] args) {

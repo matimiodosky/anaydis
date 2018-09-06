@@ -3,7 +3,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Comparator;
 import java.util.List;
 
-class QuickSorter extends AbstractSorter {
+public class QuickSorter extends AbstractSorter {
 
   <T>  int partition(@NotNull List<T> list, @NotNull Comparator<T> comparator, int lo, int hi){
       int i = lo -1;

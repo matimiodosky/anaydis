@@ -1,4 +1,4 @@
-package anaydis.sort.practice.timeTest;
+package anaydis.sort.practice.TP2;
 
 import anaydis.sort.Sorter;
 import anaydis.sort.SorterProviderImpl;

@@ -7,7 +7,8 @@ import java.util.List;
 
 public class QuickCutSorter extends QuickSorter {
 
-    private static final int M = 9;
+    private int M = 11;
+
     @NotNull
     private final InsertionSorter insertionSorter;
 
@@ -36,10 +37,17 @@ public class QuickCutSorter extends QuickSorter {
     }
 
 
+    public  void setM(int m) {
+        this.M = m;
+    }
+
     @NotNull
     @Override
     public SorterType getType() {
         return SorterType.QUICK_CUT;
     }
 
+    int getM() {
+        return M;
+    }
 }
