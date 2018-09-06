@@ -5,6 +5,7 @@ import anaydis.sort.SorterProviderImpl;
 import anaydis.sort.SorterType;
 import anaydis.sort.data.FullNameDataSetGenerator;
 import anaydis.sort.practice.FullName;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 class StabilityTest {
 
 
+    @NotNull
     private static List<FullName> generateSet(){
 
         List<FullName> list = new ArrayList<>();
@@ -32,7 +34,7 @@ class StabilityTest {
         return list;
     }
 
-    private static void testStable(Sorter sorter, List<FullName> set){
+    private static void testStable(Sorter sorter, @NotNull List<FullName> set){
         System.out.println(set);
         sorter.sort(FullNameDataSetGenerator.firstNameComparator(), set);
         System.out.println(set);

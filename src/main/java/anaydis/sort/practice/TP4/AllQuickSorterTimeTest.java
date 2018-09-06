@@ -6,6 +6,7 @@ import anaydis.sort.SorterType;
 import anaydis.sort.data.IntegerDataSetGenerator;
 import anaydis.sort.gui.SorterListener;
 import anaydis.sort.provider.SorterProvider;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,7 +14,7 @@ import java.util.List;
 
 class AllQuickSorterTimeTest {
 
-    private static long testQuickSorter(QuickSorter quickSorter, int n){
+    private static long testQuickSorter(@NotNull QuickSorter quickSorter, int n){
         IntegerDataSetGenerator integerDataSetGenerator = new IntegerDataSetGenerator();
 
         long[] times = new long[3];
