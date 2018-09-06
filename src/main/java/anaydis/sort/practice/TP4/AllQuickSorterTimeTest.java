@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class AllQuickSorterTimeTest {
+class AllQuickSorterTimeTest {
 
-    public static long testQiuickSorter(QuickSorter quickSorter, int n){
+    private static long testQuickSorter(QuickSorter quickSorter, int n){
         IntegerDataSetGenerator integerDataSetGenerator = new IntegerDataSetGenerator();
 
         long[] times = new long[3];
@@ -83,23 +83,25 @@ public class AllQuickSorterTimeTest {
         sorters.add((QuickSorter) sorterProvider.getSorterForType(SorterType.QUICK_THREE_PARTITION));
 
         int[] ns = {12500, 25000, 50000, 100000};
-        for (int i = 0; i < ns.length; i++) {
-            System.out.println("N: " + ns[i]);
+        for (int n : ns) {
+            System.out.println("N: " + n);
             QuickSorter fastest = null;
             long minTime = Long.MAX_VALUE;
             for (QuickSorter sorter : sorters) {
                 Counter counter = new Counter();
                 sorter.addSorterListener(counter);
                 try {
-                    long time = testQiuickSorter(sorter, ns[i]);
+                    long time = testQuickSorter(sorter, n);
                     System.out.println(counter.compares + "," + counter.swaps + "," + time);
                     if (time < minTime) {
                         minTime = time;
                         fastest = sorter;
                     }
-                }catch (StackOverflowError ignored){}
+                } catch (StackOverflowError ignored) {
+                }
 
             }
+            assert fastest != null;
             System.out.println("Fastest:" + fastest.getType());
         }
     }

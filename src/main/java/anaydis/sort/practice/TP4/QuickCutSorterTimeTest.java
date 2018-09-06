@@ -8,7 +8,7 @@ import anaydis.sort.data.IntegerDataSetGenerator;
 import java.util.Comparator;
 import java.util.List;
 
-public class QuickCutSorterTimeTest {
+class QuickCutSorterTimeTest {
 
     private static final QuickCutSorter sorter = (QuickCutSorter) SorterProviderImpl.getInstance().getSorterForType(SorterType.QUICK_CUT);
 

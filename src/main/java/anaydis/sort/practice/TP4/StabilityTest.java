@@ -9,7 +9,7 @@ import anaydis.sort.practice.FullName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StabilityTest {
+class StabilityTest {
 
 
     private static List<FullName> generateSet(){

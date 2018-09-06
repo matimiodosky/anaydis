@@ -19,8 +19,8 @@ public class FullNameSortingTest {
      * Insertion sorter selected for its performance capabilities over the other two implemented sorters.
      */
     private final Sorter sorter = SorterProviderImpl.getInstance().getSorterForType(SorterType.INSERTION);
-    private final Comparator<FullName> lastNameComparator = generator.lastNameComparator();
-    private final Comparator<FullName> firstNameComparator = generator.firstNameComparator();
+    private final Comparator<FullName> lastNameComparator = FullNameDataSetGenerator.lastNameComparator();
+    private final Comparator<FullName> firstNameComparator = FullNameDataSetGenerator.firstNameComparator();
     private static final int size = 73;
 
 
