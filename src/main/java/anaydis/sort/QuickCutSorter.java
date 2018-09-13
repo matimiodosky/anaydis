@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 import java.util.List;
-
 public class QuickCutSorter extends QuickSorter {
 
     private int M = 11;

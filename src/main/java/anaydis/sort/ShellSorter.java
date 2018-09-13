@@ -18,10 +18,10 @@ public class ShellSorter extends AbstractSorter {
     private static int[] generateDefaultSequence(int size){
         int maxi = 1;
 
-        //calculate max valid gap.
+        //calculate max valid H.
         while (gap(maxi+1) < size) maxi++;
 
-        //build array with gaps values
+        //build array with H values
         int[] gaps = new int[maxi + 1];
         for (int j = maxi; j > 0 ; j--) gaps[maxi - j] = gap(j);
         gaps[gaps.length - 1] = 1;

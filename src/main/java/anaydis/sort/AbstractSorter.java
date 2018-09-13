@@ -13,8 +13,6 @@ import java.util.List;
  */
 abstract class AbstractSorter implements Sorter, ObservableSorter {
 
-
-
     private final List<SorterListener> sorterListeners = new ArrayList<>();
 
     <T> boolean less(@NotNull Comparator<T> comparator, @NotNull List<T> list, int i, int j) {
@@ -35,13 +33,13 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         }
     }
 
-    public void notifySwap(int i, int j) {
+    void notifySwap(int i, int j) {
         for (SorterListener sorterListener : sorterListeners) {
             sorterListener.swap(i, j);
         }
     }
 
-    public void notifyLess(int j, int i) {
+    void notifyLess(int j, int i) {
         for (SorterListener sorterListener : sorterListeners) {
             sorterListener.greater(j, i);
         }
@@ -63,14 +61,25 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         return comparator.compare(list.get(i), list.get(j)) == 0;
     }
 
-    public void notifyEquals(int i, int j) {
+    void notifyEquals(int i, int j) {
         for (SorterListener sorterListener : sorterListeners) {
             sorterListener.equals(i, j);
         }
     }
 
     @NotNull
-    public List<SorterListener> getSortersListeners(){
+    List<SorterListener> getSortersListeners(){
         return sorterListeners;
+    }
+
+    <T> void copy(@NotNull List<T> destination, int i, @NotNull List<T> origin, int j) {
+        notifyCopy(i, j, true);
+        destination.add(origin.get(j));
+    }
+
+    private void notifyCopy(int from, int to, boolean toAux) {
+        for (SorterListener sorterListener : sorterListeners) {
+            sorterListener.copy(from, to, toAux);
+        }
     }
 }

@@ -53,6 +53,9 @@ public class SorterProviderImpl implements anaydis.sort.provider.SorterProvider 
 
         QuickThreePartitionSorter quickThreePartitionSorter = new QuickThreePartitionSorter();
         sorters.put(quickThreePartitionSorter.getType(), quickThreePartitionSorter);
+
+        TopDownMergeSorter topDownMergeSorter = new TopDownMergeSorter();
+        sorters.put(topDownMergeSorter.getType(), topDownMergeSorter);
     }
 
     @NotNull
