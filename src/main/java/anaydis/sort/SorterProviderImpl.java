@@ -56,6 +56,9 @@ public class SorterProviderImpl implements anaydis.sort.provider.SorterProvider 
 
         TopDownMergeSorter topDownMergeSorter = new TopDownMergeSorter();
         sorters.put(topDownMergeSorter.getType(), topDownMergeSorter);
+
+        BottomUpMergeSorter bottomUpMergeSorter = new BottomUpMergeSorter();
+        sorters.put(bottomUpMergeSorter.getType(), bottomUpMergeSorter);
     }
 
     @NotNull
