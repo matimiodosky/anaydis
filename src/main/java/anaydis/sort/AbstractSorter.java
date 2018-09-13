@@ -77,9 +77,10 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         destination.add(origin.get(j));
     }
 
-    private void notifyCopy(int from, int to, boolean toAux) {
+    void notifyCopy(int from, int to, boolean toAux) {
         for (SorterListener sorterListener : sorterListeners) {
             sorterListener.copy(from, to, toAux);
         }
     }
+
 }

@@ -3,6 +3,7 @@ package anaydis.sort;
 import org.jetbrains.annotations.NotNull;
 
 public class BottomUpMergeSorterTest extends SorterTest{
+
     @NotNull
     @Override
     SorterType getType() {

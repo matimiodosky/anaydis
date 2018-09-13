@@ -75,6 +75,7 @@ public abstract class SorterTest extends AbstractSorterTest {
         sorter.notifySwap(0, 0);
         sorter.notifyLess(0, 0);
         sorter.notifyEquals(0, 0);
+        sorter.notifyCopy(0, 0, true);
         assertEquals(1, sorter.getSortersListeners().size());
         sorter.removeSorterListener(sorterListener);
 }
