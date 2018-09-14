@@ -5,11 +5,11 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public class ArrayMap<K, V> implements Map<K, V> {
+class ArrayMap<K, V> implements Map<K, V> {
 
-    private List<K> keys;
-    private List<V> values;
-    private Comparator<K> comparator;
+    private final List<K> keys;
+    private final List<V> values;
+    private final Comparator<K> comparator;
 
     ArrayMap(Comparator<K> comparator) {
         keys = new ArrayList<>();
