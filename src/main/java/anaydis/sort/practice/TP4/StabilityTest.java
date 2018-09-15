@@ -4,7 +4,7 @@ import anaydis.sort.Sorter;
 import anaydis.sort.SorterProviderImpl;
 import anaydis.sort.SorterType;
 import anaydis.sort.data.FullNameDataSetGenerator;
-import anaydis.sort.practice.FullName;
+import anaydis.sort.FullName;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

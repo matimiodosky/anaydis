@@ -2,7 +2,6 @@ package anaydis.sort;
 
 
 import anaydis.sort.data.FullNameDataSetGenerator;
-import anaydis.sort.practice.FullName;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 

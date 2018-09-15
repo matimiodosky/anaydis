@@ -1,6 +1,6 @@
 package anaydis.sort.data;
 
-import anaydis.sort.practice.FullName;
+import anaydis.sort.FullName;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

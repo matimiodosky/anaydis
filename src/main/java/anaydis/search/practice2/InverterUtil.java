@@ -1,4 +1,4 @@
-package anaydis.search.practice;
+package anaydis.search.practice2;
 
 import java.io.*;
 
