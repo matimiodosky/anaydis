@@ -84,4 +84,10 @@ public class ArrayMapTest {
         assertTrue(arrayMap.containsKey(1));
     }
 
+    @Test
+    public void test_is_empty(){
+        final ArrayMap<Integer, String> arrayMap = new ArrayMap<>(Integer::compareTo);
+        assertTrue(arrayMap.isEmpty());
+    }
+
 }
