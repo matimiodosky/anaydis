@@ -1,10 +1,14 @@
 package anaydis.search;
 
 import org.junit.Test;
-import java.util.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.assertTrue;
 
 public class ArrayMapTest {
 
@@ -31,7 +35,7 @@ public class ArrayMapTest {
     public void test04_get_returns_item_put(){
         final ArrayMap<Integer, String> arrayMap = new ArrayMap<>(Integer::compareTo);
         arrayMap.put(1, "1");
-        //assertEquals("1", arrayMap.get(1));
+        assertEquals("1", arrayMap.get(1));
     }
 
     @Test
@@ -47,6 +51,8 @@ public class ArrayMapTest {
         arrayMap.put(1, "1");
         assertEquals("1", arrayMap.put(1, "2"));
         assertEquals("2", arrayMap.get(1));
+        assertNull(arrayMap.put(2, "2"));
+        assertEquals("2", arrayMap.put(2, "3"));
     }
 
     @Test
