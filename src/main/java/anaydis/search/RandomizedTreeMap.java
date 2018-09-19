@@ -65,7 +65,7 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(@NotNull K key, V value) {
-        head = 0 < rootInsertionProbability ? rootPut(head, key, value) : put(head, key, value);
+        head = Math.random() < rootInsertionProbability ? rootPut(head, key, value) : put(head, key, value);
         return lastFound;
     }
 
@@ -75,62 +75,50 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
             size++;
             return new Node(key, value);
         }
-        int cmp = comparator.compare(node.key, key);
+        int cmp = comparator.compare(key, node.key);
         if (cmp == 0) {
             lastFound = node.value;
             node.value = value;
-            size++;
-            return node;
         }
-        if (cmp > 0) {
-            node.left = put(node.left, key, value);
-            return node;
-        } else {
+        else if (cmp > 0) {
             node.right = put(node.right, key, value);
             return node;
+        } else {
+            node.left= put(node.left, key, value);
         }
+         return node;
     }
 
     private Node rootPut(Node node, K key, V value) {
-
         if (node == null) {
             lastFound = null;
             size++;
             return new Node(key, value);
         }
-        int cmp = comparator.compare(node.key, key);
-        if (cmp == 0) {
+        int cmp = comparator.compare(key, node.key);
+        if (cmp < 0){
+            node.left = rootPut(node.left, key, value);
+            node = rotateRight(node);
+        }else if (cmp > 0){
+            node.right = rootPut(node.right, key, value);
+            node = rotateLeft(node);
+        }else {
             lastFound = node.value;
             node.value = value;
-            return node;
         }
-        if (cmp > 0) {
-            Node newNode = new Node(key, value);
-            newNode.right = node;
-            lastFound = null;
-            size++;
-            newNode = rotateLeft(newNode);
-            return newNode;
-        } else {
-            Node newNode = new Node(key, value);
-            newNode.left = node;
-            lastFound = null;
-            size++;
-            newNode = rotateRight(newNode);
-            return newNode;
-        }
-
+        return node;
     }
 
-    private Node rotateLeft(Node node){
+    private Node rotateRight(Node node){
         if (node.left == null)return node;
         Node result = node.left;
-        node.left = node.right;
+        node.left = result.right;
         result.right = node;
         return result;
     }
 
-    private Node rotateRight(Node node){
+
+    private Node rotateLeft(Node node){
         if (node.right == null)return node;
         Node result = node.right;
         node.right = result.left;

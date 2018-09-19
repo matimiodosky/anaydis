@@ -47,6 +47,7 @@ public abstract class AbstractMapTest {
 
     @Test
     public void test06_replace_when_put_again(){
+
         final Map<Integer, String> map = getNewInstance();
         map.put(1, "1");
         assertEquals("1", map.put(1, "2"));
@@ -90,6 +91,17 @@ public abstract class AbstractMapTest {
         assertTrue(map.isEmpty());
     }
 
+    @Test
+    public void test_get_to_an_exisiting_key(){
+        final Map<Integer, String> map = getNewInstance();
+        for (int i = 0; i < 100; i++) {
+            map.put(i, "" + i);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            assertEquals("" + i, map.get(i));
+        }
+    }
     abstract Map<Integer, String> getNewInstance();
 
 
