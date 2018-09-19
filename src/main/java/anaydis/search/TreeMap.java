@@ -22,7 +22,7 @@ public class TreeMap<K, V> implements Map<K, V> {
     private int size;
     private V lastFound;
 
-    TreeMap(Comparator<K> comparator) {
+    public TreeMap(Comparator<K> comparator) {
         this.head = null;
         this.comparator = comparator;
     }
