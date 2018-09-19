@@ -4,6 +4,6 @@ public class TreeMapTest extends AbstractMapTest {
 
     @Override
     Map<Integer, String> getNewInstance() {
-        return new TreeMap<>(Integer::compareTo);
+        return new RandomizedTreeMap<>(Integer::compareTo);
     }
 }

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class TreeMap<K, V> implements Map<K, V> {
+public class RandomizedTreeMap<K, V> implements Map<K, V> {
 
     private class Node{
         K key;
@@ -22,7 +22,7 @@ public class TreeMap<K, V> implements Map<K, V> {
     private int size;
     private V lastFound;
 
-    public TreeMap(Comparator<K> comparator) {
+    public RandomizedTreeMap(Comparator<K> comparator) {
         this.head = null;
         this.comparator = comparator;
     }
