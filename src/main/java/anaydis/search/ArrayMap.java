@@ -11,7 +11,7 @@ class ArrayMap<K, V> implements Map<K, V> {
     private final List<V> values;
     private final Comparator<K> comparator;
 
-    ArrayMap(Comparator<K> comparator) {
+    public ArrayMap(Comparator<K> comparator) {
         keys = new ArrayList<>();
         values = new ArrayList<>();
         this.comparator = comparator;
