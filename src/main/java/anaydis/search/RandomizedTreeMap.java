@@ -106,17 +106,33 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
             newNode.right = node;
             lastFound = null;
             size++;
-            //todo rotate
+            newNode = rotateLeft(newNode);
             return newNode;
         } else {
             Node newNode = new Node(key, value);
             newNode.left = node;
             lastFound = null;
             size++;
-            //todo rotate
+            newNode = rotateRight(newNode);
             return newNode;
         }
 
+    }
+
+    private Node rotateLeft(Node node){
+        if (node.left == null)return node;
+        Node result = node.left;
+        node.left = node.right;
+        result.right = node;
+        return result;
+    }
+
+    private Node rotateRight(Node node){
+        if (node.right == null)return node;
+        Node result = node.right;
+        node.right = result.left;
+        result.left = node;
+        return result;
     }
 
     @Override
