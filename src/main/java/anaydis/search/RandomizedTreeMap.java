@@ -2,7 +2,10 @@ package anaydis.search;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Stack;
 
 public class RandomizedTreeMap<K, V> implements Map<K, V> {
 
@@ -62,7 +65,7 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(@NotNull K key, V value) {
-        head = Math.random() < rootInsertionProbability ? rootPut(head, key, value) : put(head, key, value);
+        head = 0 < rootInsertionProbability ? rootPut(head, key, value) : put(head, key, value);
         return lastFound;
     }
 
