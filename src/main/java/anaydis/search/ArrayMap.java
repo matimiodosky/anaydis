@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-class ArrayMap<K, V> implements Map<K, V> {
+public class ArrayMap<K, V> implements Map<K, V> {
 
     private final List<K> keys;
     private final List<V> values;
