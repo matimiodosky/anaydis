@@ -16,7 +16,6 @@ class BottomUpMergeSorter extends AbstractMergeSort {
                 merge(comparator, list, lo1, lo1 + middle - 1, hi1);
             }
         }
-
     }
 
     @NotNull

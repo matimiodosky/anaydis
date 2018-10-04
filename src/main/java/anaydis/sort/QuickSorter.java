@@ -7,7 +7,7 @@ public class QuickSorter extends AbstractSorter {
 
   <T>  int partition(@NotNull List<T> list, @NotNull Comparator<T> comparator, int lo, int hi){
       int i = lo -1;
-      int j = hi;
+      int j = hi ;
 
       while (true){
           while( less(comparator, list, ++i, hi)) {

@@ -45,7 +45,6 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
         }
     }
 
-    //todo test addSorterListener and removeSorterListener
     @Override
     public void addSorterListener(@NotNull SorterListener listener) {
         sorterListeners.add(listener);
