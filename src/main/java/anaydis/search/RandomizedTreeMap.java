@@ -31,10 +31,6 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         this.comparator = comparator;
     }
 
-    public void setRootInsertionProbability(double rootInsertionProbability) {
-        this.rootInsertionProbability = rootInsertionProbability;
-    }
-
     @Override
     public boolean isEmpty() {
         return size() == 0;

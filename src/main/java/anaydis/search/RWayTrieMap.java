@@ -39,7 +39,8 @@ public class RWayTrieMap<V> implements Map<String, V> {
 
     @Override
     public V get(@NotNull String key) {
-        return find(head, key, 0).value;
+        Node result = find(head, key, 0);
+        return result != null? result.value : null;
     }
 
     @Override
@@ -47,6 +48,7 @@ public class RWayTrieMap<V> implements Map<String, V> {
         head = put(head, key, value, 0);
         V lastFound = this.lastFound;
         this.lastFound = null;
+        keys.add(key);
         return lastFound;
     }
 
@@ -76,6 +78,7 @@ public class RWayTrieMap<V> implements Map<String, V> {
 
     @Override
     public void clear() {
+        size = 0;
         head = null;
         keys.clear();
     }
