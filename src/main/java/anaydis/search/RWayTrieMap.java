@@ -93,9 +93,6 @@ public class RWayTrieMap<V> implements Map<String, V> {
         if (node == null)return null;
         if (level == key.length())return node;
         final int next = (int) key.charAt(level);
-        if (node.nodes.length >= next){
-            return find((Node) node.nodes[next], key, level+1);
-        }
-        return null;
+        return find((Node) node.nodes[next], key, level+1);
     }
 }

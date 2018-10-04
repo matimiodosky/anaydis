@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNull;
@@ -83,6 +84,16 @@ public abstract class AbstractMapTest {
         final Map<Integer, String> map = getNewInstance();
         map.put(1, "1");
         assertTrue(map.containsKey(1));
+    }
+
+    @Test
+    public void multiple_put(){
+        final Map<Integer, String> map = getNewInstance();
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            final int value = random.nextInt(100);
+            map.put(value, "" + value);
+        }
     }
 
     @Test

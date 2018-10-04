@@ -54,4 +54,12 @@ public class RWayTrieMapTest  {
         assertEquals("hola", iterator.next());
         assertTrue(!iterator.hasNext());
     }
+
+    @Test
+    public void test_contains(){
+        RWayTrieMap<String> stringRWayTrieMap = new RWayTrieMap<>();
+        assertTrue(!stringRWayTrieMap.containsKey("hola"));
+        stringRWayTrieMap.put("hola", "hola");
+        assertTrue(stringRWayTrieMap.containsKey("hola"));
+    }
 }
