@@ -1,12 +1,8 @@
-package anaydis.inmutable;
+package anaydis.immutable;
 
-import anaydis.immutable.Map;
-import anaydis.search.RandomizedTreeMap;
 import org.jetbrains.annotations.NotNull;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Stack;
+
+import java.util.*;
 
 public class BinaryTree<K, V> implements Map<K, V> {
 

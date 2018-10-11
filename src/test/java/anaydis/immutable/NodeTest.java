@@ -1,5 +1,4 @@
-package anaydis.inmutable;
-import anaydis.immutable.List;
+package anaydis.immutable;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

@@ -1,6 +1,5 @@
-package anaydis.inmutable;
+package anaydis.immutable;
 
-import anaydis.immutable.Map;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
