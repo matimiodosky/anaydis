@@ -2,15 +2,14 @@ package anaydis.search.practice;
 
 import anaydis.search.RandomizedTreeMap;
 import anaydis.sort.data.IntegerDataSetGenerator;
-import anaydis.sort.data.StringDataSetGenerator;
 
 import java.util.List;
 
 public class RandomizedTreeMapRateTest {
 
-    private static RandomizedTreeMap<Integer, Integer> randomizedTreeMap = new RandomizedTreeMap<>(Integer::compareTo);
+    private static final RandomizedTreeMap<Integer, Integer> randomizedTreeMap = new RandomizedTreeMap<>(Integer::compareTo);
 
-    private static long averageTime(double p){
+    private static long averageTime(){
         randomizedTreeMap.clear();
         List<Integer> ints = new IntegerDataSetGenerator().createRandom(100000);
 
@@ -20,8 +19,8 @@ public class RandomizedTreeMapRateTest {
             randomizedTreeMap.clear();
             long start = System.currentTimeMillis();
 
-            for (int i = 0; i < ints.size(); i++) {
-                randomizedTreeMap.put(ints.get(i), ints.get(i));
+            for (Integer anInt : ints) {
+                randomizedTreeMap.put(anInt, anInt);
             }
 
             for (int i = ints.size() - 1; i >= 0; i--) {
@@ -38,7 +37,7 @@ public class RandomizedTreeMapRateTest {
         long min = Long.MAX_VALUE;
         double minp = -1;
         for (double p : ps) {
-            long time = averageTime(p);
+            long time = averageTime();
             if (time < min){
                 min = time;
                 minp = p;

@@ -7,7 +7,7 @@ import java.util.List;
 public class RWayTrieMap<V> implements Map<String, V> {
 
     private class Node {
-        Object[] nodes;
+        final Object[] nodes;
         V value;
 
         Node( V value) {
@@ -18,7 +18,7 @@ public class RWayTrieMap<V> implements Map<String, V> {
 
     private Node head;
     private int size;
-    private List<String> keys;
+    private final List<String> keys;
     private V lastFound;
 
     public RWayTrieMap() {

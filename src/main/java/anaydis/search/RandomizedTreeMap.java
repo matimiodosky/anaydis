@@ -9,7 +9,7 @@ import java.util.Stack;
 public class RandomizedTreeMap<K, V> implements Map<K, V> {
 
     private class Node {
-        K key;
+        final K key;
         V value;
         Node left, right;
 
@@ -24,7 +24,7 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
     private final Comparator<K> comparator;
     private int size;
     private V lastFound;
-    private double rootInsertionProbability = 0.6;
+    private  final static double rootInsertionProbability = 0.6;
 
     public RandomizedTreeMap(Comparator<K> comparator) {
         this.head = null;

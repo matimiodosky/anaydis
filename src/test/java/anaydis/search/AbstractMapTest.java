@@ -103,7 +103,7 @@ public abstract class AbstractMapTest {
     }
 
     @Test
-    public void test_get_to_an_exisiting_key(){
+    public void test_get_to_an_existing_key(){
         final Map<Integer, String> map = getNewInstance();
         for (int i = 0; i < 100; i++) {
             map.put(i, "" + i);
@@ -113,6 +113,7 @@ public abstract class AbstractMapTest {
             assertEquals("" + i, map.get(i));
         }
     }
+
     abstract Map<Integer, String> getNewInstance();
 
 

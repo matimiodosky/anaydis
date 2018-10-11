@@ -7,8 +7,8 @@ import java.util.LinkedList;
 
 public class Node<T> implements List<T> {
 
-    private T elem;
-    private Node<T> tail;
+    private final T elem;
+    private final Node<T> tail;
 
     public Node(T elem, Node<T> tail) {
         this.elem = elem;
@@ -44,17 +44,10 @@ public class Node<T> implements List<T> {
     @NotNull
     @Override
     public List<T> reverse() {
-
-        LinkedList<T> queue = new LinkedList<T>();
-        Node<T> current = this;
+        Node<T> reversed = new Node<>(), current = this;
         while (current != null){
-            queue.push(current.elem);
+            reversed = new Node<>(current.elem, reversed);
             current = current.tail;
-        }
-        Node<T> tail = null, reversed = new Node<>();
-        while (!queue.isEmpty()){
-            reversed = new Node<>(queue.removeLast(), tail);
-            tail = reversed;
         }
         return reversed;
     }

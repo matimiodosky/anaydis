@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class MergeWithNodes {
 
     private static class Node<T>{
-        T elem;
+        final T elem;
         Node<T> next;
 
         Node(T elem) {
@@ -13,7 +13,7 @@ public class MergeWithNodes {
         }
     }
 
-    public static <T> Node<T> sort(Node<T> node, Comparator<T> comparator){
+    private static <T> Node<T> sort(Node<T> node, Comparator<T> comparator){
         Node<T> mid = node, j = node;
         while (j!= null && j.next!=null && j.next.next != null){
             mid = mid.next;
@@ -60,8 +60,7 @@ public class MergeWithNodes {
         list.next.next.next = new Node<>(2);
         list.next.next.next.next = new Node<>(5);
         list.next.next.next.next.next = new Node<>(4);
-        list = sort(list, Integer::compareTo);
-        System.out.println();
+        sort(list, Integer::compareTo);
     }
 
 }
