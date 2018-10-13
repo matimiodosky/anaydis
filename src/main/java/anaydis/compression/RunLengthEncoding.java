@@ -1,11 +1,8 @@
 package anaydis.compression;
-
-import com.sun.tools.internal.ws.wsdl.document.Output;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class RunLengthEncoding implements Compressor {
 
@@ -50,19 +47,20 @@ public class RunLengthEncoding implements Compressor {
 
     @Override
     public void decode(@NotNull InputStream input, @NotNull OutputStream output) throws IOException {
+        int read = input.read();
+        while (read != -1){
 
-    }
-
-    public static void main(String[] args) throws IOException {
-        RunLengthEncoding runLengthEncoding = new RunLengthEncoding();
-        String aaa = "aaaabbbbccccdddd";
-
-
-        InputStream original = new ByteArrayInputStream(aaa.getBytes(UTF_8));
-        ByteArrayOutputStream encoded = new ByteArrayOutputStream();
-        runLengthEncoding.encode(original, encoded);
-        OutputStream decoded = new ByteArrayOutputStream();
-
-        runLengthEncoding.decode(new ByteArrayInputStream(encoded.toByteArray()), decoded);
+            if(read == SCAPE_CHARACTER){
+                final int count = input.read();
+                final char c = (char) input.read();
+                for (int i = 0; i < count; i++) {
+                    output.write(c);
+                }
+            }
+            else {
+                output.write(read);
+            }
+            read = input.read();
+        }
     }
 }
