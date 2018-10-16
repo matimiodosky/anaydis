@@ -5,12 +5,34 @@ import org.jetbrains.annotations.NotNull;
 
 public class Node<T> implements List<T> {
 
-    public static Node NIL  = new Node<>(null, null);
+    public static List NIL  = new List() {
+        @Override
+        public Object head() {
+            throw new IllegalStateException();
+        }
+
+        @NotNull
+        @Override
+        public List tail() {
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return true;
+        }
+
+        @NotNull
+        @Override
+        public List reverse() {
+            throw new IllegalStateException();
+        }
+    };
     private final T elem;
-    private final Node<T> tail;
+    private final List<T> tail;
 
 
-    private Node(T elem, Node<T> tail) {
+    public Node(T elem, List<T> tail) {
         this.elem = elem;
         this.tail = tail;
     }
@@ -35,10 +57,10 @@ public class Node<T> implements List<T> {
     @NotNull
     @Override
     public List<T> reverse() {
-        Node<T> reversed = (Node<T>) List.nil(), current = this;
-        while (current != null){
-            reversed = new Node<>(current.elem, reversed);
-            current = current.tail;
+        List<T> reversed = List.nil(), current = this;
+        while (!current.isEmpty()){
+            reversed = List.cons(current.head(), reversed);
+            current = current.tail();
         }
         return reversed;
     }
