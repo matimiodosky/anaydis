@@ -10,20 +10,20 @@ public class BanquersQueueTest{
 
     @Test
     public void  test_new_queueu_is_empty(){
-        BanquersQueue<Integer> banquersQueue = new BanquersQueue<>();
+        BankersQueue<Integer> banquersQueue = new BankersQueue<>();
         assertTrue(banquersQueue.isEmpty());
     }
 
     @Test
     public void test02_added_elem_is_not_empty(){
-        BanquersQueue<Integer> banquersQueue = new BanquersQueue<>(), banquersQueue1;
+        BankersQueue<Integer> banquersQueue = new BankersQueue<>(), banquersQueue1;
         banquersQueue1 = banquersQueue.enqueue(1);
         assertFalse(banquersQueue1.isEmpty());
     }
 
     @Test
     public void test02_added_elem_and_dequeued(){
-        BanquersQueue<Integer> banquersQueue = new BanquersQueue<>(), banquersQueue1;
+        BankersQueue<Integer> banquersQueue = new BankersQueue<>(), banquersQueue1;
         banquersQueue1 = banquersQueue.enqueue(1);
         Queue.Result r = banquersQueue1.dequeue();
         assertEquals(1, r.value);
@@ -32,7 +32,7 @@ public class BanquersQueueTest{
 
     @Test
     public void test0e_added_multi_elems_dequeued(){
-        Queue<Integer> banquersQueue = new BanquersQueue<>(), banquersQueue1, banquersQueue2, banquersQueue3, banquersQueue4;
+        Queue<Integer> banquersQueue = new BankersQueue<>(), banquersQueue1, banquersQueue2, banquersQueue3, banquersQueue4;
         banquersQueue1 = banquersQueue.enqueue(1);
         banquersQueue2 = banquersQueue1.enqueue(2);
 

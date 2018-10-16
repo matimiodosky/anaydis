@@ -1,24 +1,24 @@
 package anaydis.immutable;
 import org.jetbrains.annotations.NotNull;
 
-public class BanquersQueue<T> implements Queue<T> {
+public class BankersQueue<T> implements Queue<T> {
 
     private List<T> in, out;
 
-    public BanquersQueue(@NotNull List<T> in, @NotNull List<T> out){
+    public BankersQueue(@NotNull List<T> in, @NotNull List<T> out){
         this.in = in;
         this.out = out;
     }
 
-    public BanquersQueue() {
+    public BankersQueue() {
         this.in = List.nil();
         this.out = List.nil();
     }
 
     @NotNull
     @Override
-    public BanquersQueue<T> enqueue(@NotNull T value) {
-        return new BanquersQueue<>(List.cons(value, in), out);
+    public BankersQueue<T> enqueue(@NotNull T value) {
+        return new BankersQueue<>(List.cons(value, in), out);
     }
 
     @NotNull
@@ -26,9 +26,9 @@ public class BanquersQueue<T> implements Queue<T> {
     public Result<T> dequeue() {
         if (out.isEmpty()){
             List<T> out = in.reverse();
-            return new Result<>(out.head(), new BanquersQueue<>(List.nil(), out.tail()));
+            return new Result<>(out.head(), new BankersQueue<>(List.nil(), out.tail()));
         }
-        return new Result<>(out.head(), new BanquersQueue<>(in, out.tail()));
+        return new Result<>(out.head(), new BankersQueue<>(in, out.tail()));
     }
 
     @Override
