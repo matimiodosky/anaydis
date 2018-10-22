@@ -16,25 +16,22 @@ public class RunLengthEncoding implements Compressor {
 
         while (read != -1){
 
-            if ((char)read == counting_char){
-                counter++;
-            }
-            else {
-                if (counting_char == SCAPE_CHARACTER){
+
+            if (counting_char == SCAPE_CHARACTER){
                     counting_char = (char) read;
                     counter++;
-                }else if (counter == 0){
-                    output.write(counting_char);
-                    counting_char = (char) read;
-                }
-                else{
-                    output.write(SCAPE_CHARACTER);
-                    output.write(counter);
-                    output.write(counting_char);
-                    counter = 1;
-                    counting_char = (char) read;
-                }
             }
+            else if ((char)read == counting_char){
+                counter++;
+            }
+            else{
+                output.write(SCAPE_CHARACTER);
+                output.write(counter);
+                output.write(counting_char);
+                counter = 1;
+                counting_char = (char) read;
+            }
+
             read = input.read();
         }
 
@@ -63,4 +60,5 @@ public class RunLengthEncoding implements Compressor {
             read = input.read();
         }
     }
+
 }
