@@ -1,17 +1,11 @@
 package anaydis.compression;
 
-import anaydis.bit.Bits;
-import anaydis.sort.SorterTest;
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
