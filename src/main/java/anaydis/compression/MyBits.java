@@ -45,6 +45,19 @@ public class MyBits extends Bits {
         stream.write(output.toByteArray());
     }
 
+    public static MyBits buildBits(byte length, byte[] code){
+        MyBits bits = new MyBits();
+        int k = 0;
+        for (byte aByte : code) {
+            for (int j = Byte.SIZE - 1; j >= 0; j--) {
+                if (k == length) return bits;
+                bits.add(((aByte >> j) & 1) == 1);
+                k++;
+            }
+        }
+        return bits;
+    }
+
     public static MyBits buildBits(byte length, byte code) {
         return buildBits((byte) 0, length, code);
     }

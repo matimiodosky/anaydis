@@ -2,66 +2,74 @@ package anaydis.compression;
 import anaydis.bit.BitsOutputStream;
 import org.jetbrains.annotations.NotNull;
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import static anaydis.compression.MyBits.buildBits;
 
 public class Huffman implements Compressor {
 
+    /**
+         Encoding format:
+         [amount of symbols]{[symbol](byte)[length of code](byte)[code](amount of bytes specified)
+         [length of message](int)[codes](amount of bytes needed)
+     */
     @Override
     public void encode(@NotNull InputStream input, @NotNull OutputStream output) throws IOException {
 
-        Map<Integer, Integer> counts = countSymbols(input);
-        //-1 works as counter.
-        int size = counts.remove(-1);
+        Map<Byte, Integer> counts = countSymbols(input);
         Node head = buildTree(counts);
-        Map<Integer, MyBits> codes = buildCodes(head);
-        int tableSize = writeTable(codes, output);
-        int messageSize = writeMessage(size, codes, input, output);
+        int size = head.size;
+        Map<Byte, MyBits> codes = buildCodes(head);
+        writeTable(codes, output);
+        writeMessage(size, codes, input, output);
     }
 
+    /**
+     Encoding format:
+     [amount of symbols]{[symbol](byte)[length of code](byte)[code](amount of bytes specified)
+     [length of message](int)[codes](amount of bytes needed)
+     */
     @Override
     public void decode(@NotNull InputStream input, @NotNull OutputStream output) throws IOException {
-        Map<MyBits, Integer> symbols = buildTable(input);
-        int lengthOfMessage = input.read();
-        ArrayBlockingQueue<Boolean> bits = buildBitsQueue(input, lengthOfMessage);
+        Map<MyBits, Byte> symbols = buildTable(input);
+        int lengthOfMessage = readInt(input);
+        LinkedList<Boolean> bits = buildBitsQueue(input);
+
         for (int i = 0; i < lengthOfMessage; i++) {
             MyBits code = new MyBits().add(bits.poll());
-            Integer symbol = symbols.get(code);
-            while (symbol == null){
+            Byte symbol = symbols.get(code);
+            while (symbol == null) {
                 code.add(bits.poll());
                 symbol = symbols.get(code);
             }
             output.write(symbol);
         }
+
     }
 
     //encoding utils
-    private Map<Integer, Integer> countSymbols(InputStream input) throws IOException {
+    private Map<Byte, Integer> countSymbols(InputStream input) throws IOException {
 
-        HashMap<Integer, Integer> counts = new HashMap<>();
+        HashMap<Byte, Integer> counts = new HashMap<>();
         //-1 works as counter;
-        int read = input.read();
-        int count = 0;
+        byte read = (byte) input.read();
         //count symbols
         while (read != -1) {
             Integer result = counts.put(read, 1);
             if (result != null) {
                 counts.put(read, ++result);
             }
-            read = input.read();
-            count++;
+            read = (byte) input.read();
         }
-        counts.put(-1, count);
         return counts;
     }
 
-    private Node buildTree(Map<Integer, Integer> counts) {
+    private Node buildTree(Map<Byte, Integer> counts) {
         //build simple nodes
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(o -> o.size));
 
-        for (Integer symbol : counts.keySet()) {
+        for (Byte symbol : counts.keySet()) {
             priorityQueue.add(new Node(symbol, counts.get(symbol)));
         }
 
@@ -73,8 +81,8 @@ public class Huffman implements Compressor {
         return priorityQueue.poll();
     }
 
-    private Map<Integer, MyBits> buildCodes(Node tree) {
-        HashMap<Integer, MyBits> codes = new HashMap<>();
+    private Map<Byte, MyBits> buildCodes(Node tree) {
+        HashMap<Byte, MyBits> codes = new HashMap<>();
         Stack<Node> stack = new Stack<>();
         stack.push(tree);
 
@@ -97,64 +105,86 @@ public class Huffman implements Compressor {
         return codes;
     }
 
-    private int writeTable(Map<Integer, MyBits> codes, OutputStream output) throws IOException {
+    private void writeTable(Map<Byte, MyBits> codes, OutputStream output) throws IOException {
         output.write(codes.size());
-        for (Integer integer : codes.keySet()) {
-            output.write(integer);
-            codes.get(integer).writeInto(output);
+        for (Byte symbol : codes.keySet()) {
+            output.write(symbol);
+            codes.get(symbol).writeInto(output);
         }
-        return 0;
     }
 
-    private int writeMessage(int size, Map<Integer, MyBits> codes, InputStream inputStream, OutputStream outputStream) throws IOException {
+    private void writeMessage(int size, Map<Byte, MyBits> codes, InputStream inputStream, OutputStream outputStream) throws IOException {
+        writeInt(size, outputStream);
         BitsOutputStream bitsOutputStream = new BitsOutputStream();
         inputStream.reset();
-        int read = inputStream.read();
-        outputStream.write(size);
+        byte read = (byte) inputStream.read();
         while (read != -1) {
             bitsOutputStream.write(codes.get(read));
-            read = inputStream.read();
+            read = (byte) inputStream.read();
+
         }
         outputStream.write(bitsOutputStream.toByteArray());
-        return 0;
+    }
+
+    public static void writeInt(int value, OutputStream outputStream) throws IOException {
+        outputStream.write(value >> 24);
+        outputStream.write(value >> 16);
+        outputStream.write(value >> 8);
+        outputStream.write(value);
+        System.out.println();
+    }
+
+    public static int readInt(InputStream inputStream) throws IOException {
+        byte[] bytes = new byte[4];
+        inputStream.read(bytes);
+        return ByteBuffer.wrap(bytes).getInt();
     }
 
     //decoding utils
-    private Map<MyBits, Integer> buildTable(InputStream input) throws IOException {
-        int amountOfSymbols = input.read();
-        Map<MyBits, Integer> symbols = new HashMap<>();
-
+    private Map<MyBits, Byte> buildTable(InputStream input) throws IOException {
+        byte amountOfSymbols = (byte) input.read();
+        Map<MyBits, Byte> symbols = new HashMap<>();
         for (int i = 0; i < amountOfSymbols; i++) {
-            final int symbol = input.read();
+            final byte symbol = (byte) input.read();
             final byte length = (byte) input.read();
-            final byte code = (byte) input.read();
+            final byte arrayLength = (byte) ((length % 8 == 0 )? (length / 8) : ((length / 8) + 1));
+            final byte[] code = new byte[arrayLength];
+            for (int j = 0; j < arrayLength; j++) {
+                code[j] = (byte) input.read();
+            }
             symbols.put(buildBits(length, code), symbol);
         }
         return symbols;
+
     }
 
-    private ArrayBlockingQueue<Boolean> buildBitsQueue(InputStream input, int lengthOfMessage) throws IOException {
-        ArrayBlockingQueue<Boolean> bits = new ArrayBlockingQueue<>(lengthOfMessage * Byte.SIZE);
+    private LinkedList<Boolean> buildBitsQueue(InputStream input) throws IOException {
+        LinkedList<Boolean> bits = new LinkedList<>();
         byte read = (byte) input.read();
-        while (read != -1){
+        while (input.available() > 0){
+            if (bits.size() == 2840){
+                System.out.println();
+            }
             for (byte i = Byte.SIZE - 1; i >= 0; i--) {
-                bits.add(((read >> i) & 1) == 1);
+                bits.addLast(((read >> i) & 1) == 1);
             }
             read = (byte) input.read();
+        }
+        for (byte i = Byte.SIZE - 1; i >= 0; i--) {
+            bits.addLast(((read >> i) & 1) == 1);
         }
         return bits;
     }
 
-    //bits utils
 
     //private node class
     private class Node {
         int size;
-        int symbol;
+        Byte symbol;
         Node left, right;
         MyBits code;
 
-        Node(int symbol, int size) {
+        Node(Byte symbol, int size) {
             this.size = size;
             this.symbol = symbol;
             this.code = new MyBits();
@@ -167,19 +197,6 @@ public class Huffman implements Compressor {
             this.code = new MyBits();
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Node node = (Node) o;
-            return symbol == node.symbol;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(symbol);
-        }
-
         MyBits getCode() {
             return this.code;
         }
@@ -187,6 +204,4 @@ public class Huffman implements Compressor {
         void setCode(MyBits code) {
             this.code = code;
         }
-    }
-
-}
+    }}
