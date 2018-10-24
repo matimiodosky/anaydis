@@ -5,8 +5,11 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
@@ -55,19 +58,34 @@ public class HuffmanTest {
                 "and alleys, streets and avenues--north, east, south, and west.  Yet\n" +
                 "here they all unite.  Tell me, does the magnetic virtue of the\n" +
                 "needles of the compasses of all those ships attract them thither?\n]" +
-
                 "";
 
         Huffman h = new Huffman();
-        //String str = "ABRACADABRA";
-        String str = testSubject;
-        ByteArrayInputStream input = new ByteArrayInputStream(str.getBytes());
+        ByteArrayInputStream input = new ByteArrayInputStream(testSubject.getBytes());
         ByteArrayOutputStream encoded = new ByteArrayOutputStream();
         ByteArrayOutputStream decoded = new ByteArrayOutputStream();
         h.encode(input, encoded);
         h.decode(new ByteArrayInputStream(encoded.toByteArray()), decoded);
-        assertArrayEquals(str.getBytes(), decoded.toByteArray());
+        assertArrayEquals(testSubject.getBytes(), decoded.toByteArray());
 
+    }
+
+    @Test
+    public void test_quijote() throws IOException{
+
+        try {
+            String str = readFile("/Users/matiasmiodosky/projects/austral/anaydis/src/main/resources/books/quijote.txt", Charset.defaultCharset());
+
+            Huffman h = new Huffman();
+            ByteArrayInputStream input = new ByteArrayInputStream(str.getBytes());
+            ByteArrayOutputStream encoded = new ByteArrayOutputStream();
+            ByteArrayOutputStream decoded = new ByteArrayOutputStream();
+            h.encode(input, encoded);
+            h.decode(new ByteArrayInputStream(encoded.toByteArray()), decoded);
+            assertArrayEquals(str.getBytes(), decoded.toByteArray());
+        }catch (FileNotFoundException e){
+            System.out.println();
+        }
     }
 
     @Test
@@ -79,4 +97,10 @@ public class HuffmanTest {
 
     }
 
+    static String readFile(String path, Charset encoding)
+            throws IOException
+    {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
+    }
 }

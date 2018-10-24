@@ -58,18 +58,6 @@ public class MyBits extends Bits {
         return bits;
     }
 
-    public static MyBits buildBits(byte length, byte code) {
-        return buildBits((byte) 0, length, code);
-    }
-
-    public static MyBits buildBits(byte from, byte length, byte code) {
-        MyBits bits = new MyBits();
-        for (int i = Byte.SIZE - 1 - from; i >= Byte.SIZE - length; i--) {
-            bits.add(((code >> i) & 1) == 1);
-        }
-        return bits;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

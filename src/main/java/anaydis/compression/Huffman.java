@@ -1,4 +1,5 @@
 package anaydis.compression;
+import anaydis.bit.Bits;
 import anaydis.bit.BitsOutputStream;
 import org.jetbrains.annotations.NotNull;
 import java.io.*;
@@ -16,13 +17,16 @@ public class Huffman implements Compressor {
      */
     @Override
     public void encode(@NotNull InputStream input, @NotNull OutputStream output) throws IOException {
-
         Map<Byte, Integer> counts = countSymbols(input);
         Node head = buildTree(counts);
         int size = head.size;
         Map<Byte, MyBits> codes = buildCodes(head);
-        writeTable(codes, output);
-        writeMessage(size, codes, input, output);
+        long tableBytes = writeTable(codes, output);
+        long messageBytes = writeMessage(size, codes, input, output);
+        System.out.println("Encoding took " + (double)tableBytes/KILO + " Kb for the table");
+        System.out.println("and " + (double)messageBytes/MEGA + " Mb for the encoded data");
+        System.out.println("while original data was " + (double)size/MEGA + " Mb");
+        System.out.println("The compression rate is:" + (tableBytes + messageBytes)/(double)size);
     }
 
     /**
@@ -105,25 +109,35 @@ public class Huffman implements Compressor {
         return codes;
     }
 
-    private void writeTable(Map<Byte, MyBits> codes, OutputStream output) throws IOException {
+    private long writeTable(Map<Byte, MyBits> codes, OutputStream output) throws IOException {
+        long bytes = 0;
         output.write(codes.size());
         for (Byte symbol : codes.keySet()) {
             output.write(symbol);
-            codes.get(symbol).writeInto(output);
+            bytes++;
+            Bits code = codes.get(symbol);
+            code.writeInto(output);
+            bytes += code.getLength();
+            bytes++;
         }
+        return bytes;
     }
 
-    private void writeMessage(int size, Map<Byte, MyBits> codes, InputStream inputStream, OutputStream outputStream) throws IOException {
+    private long writeMessage(int size, Map<Byte, MyBits> codes, InputStream inputStream, OutputStream outputStream) throws IOException {
+        long bytes = 0;
         writeInt(size, outputStream);
+        bytes += 4;
         BitsOutputStream bitsOutputStream = new BitsOutputStream();
         inputStream.reset();
         byte read = (byte) inputStream.read();
         while (read != -1) {
             bitsOutputStream.write(codes.get(read));
             read = (byte) inputStream.read();
-
         }
-        outputStream.write(bitsOutputStream.toByteArray());
+        byte[] array = bitsOutputStream.toByteArray();
+        outputStream.write(array);
+        bytes += array.length;
+        return bytes;
     }
 
     public static void writeInt(int value, OutputStream outputStream) throws IOException {
@@ -175,7 +189,6 @@ public class Huffman implements Compressor {
         }
         return bits;
     }
-
 
     //private node class
     private class Node {

@@ -28,6 +28,7 @@ public class Node<T> implements List<T> {
             throw new IllegalStateException();
         }
     };
+
     private final T elem;
     private final List<T> tail;
 
