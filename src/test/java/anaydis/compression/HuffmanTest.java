@@ -70,23 +70,23 @@ public class HuffmanTest {
 
     }
 
-    @Test
-    public void test_quijote() throws IOException{
-
-        try {
-            String str = readFile("/Users/matiasmiodosky/projects/austral/anaydis/src/main/resources/books/quijote.txt", Charset.defaultCharset());
-
-            Huffman h = new Huffman();
-            ByteArrayInputStream input = new ByteArrayInputStream(str.getBytes());
-            ByteArrayOutputStream encoded = new ByteArrayOutputStream();
-            ByteArrayOutputStream decoded = new ByteArrayOutputStream();
-            h.encode(input, encoded);
-            h.decode(new ByteArrayInputStream(encoded.toByteArray()), decoded);
-            assertArrayEquals(str.getBytes(), decoded.toByteArray());
-        }catch (FileNotFoundException e){
-            System.out.println();
-        }
-    }
+//    @Test
+//    public void test_quijote() throws IOException{
+//
+//        try {
+//            String str = readFile("/Users/matiasmiodosky/projects/austral/anaydis/src/main/resources/books/quijote.txt", Charset.defaultCharset());
+//
+//            Huffman h = new Huffman();
+//            ByteArrayInputStream input = new ByteArrayInputStream(str.getBytes());
+//            ByteArrayOutputStream encoded = new ByteArrayOutputStream();
+//            ByteArrayOutputStream decoded = new ByteArrayOutputStream();
+//            h.encode(input, encoded);
+//            h.decode(new ByteArrayInputStream(encoded.toByteArray()), decoded);
+//            assertArrayEquals(str.getBytes(), decoded.toByteArray());
+//        }catch (FileNotFoundException e){
+//            System.out.println();
+//        }
+//    }
 
     @Test
     public void test_read_write_int() throws IOException {
