@@ -5,34 +5,34 @@ import java.util.Iterator;
 
 public class CircleString implements Comparable<CircleString>{
 
-    private char[] string;
-    private int start;
+    final private char[] string;
+    final private int start;
+    final private int length;
 
-    CircleString(String string) {
-        this.string = new char[string.length()];
-        for (int i = 0; i < string.length(); i++) {
-            this.string[i] = string.charAt(i);
-        }
-        start = 0;
+    CircleString(char[] string) {
+        this.string = string;
+        this.length = string.length;
+        this.start = 0;
     }
 
     private CircleString(char[] string, int start){
+        if (string.length == 0 || start < 0)throw new IllegalArgumentException();
         this.string = string;
         this.start = start;
+        this.length = string.length;
     }
 
     CircleString shift(){
         int newStart = start - 1;
-        if (newStart == -1) newStart = string.length - 1;
+        if (newStart == -1) newStart = length - 1;
         return new CircleString(string, newStart);
     }
 
     int length(){
-        return string.length;
+        return length;
     }
 
-
-    public Iterator<Character> iterator(){
+    Iterator<Character> iterator(){
         return new Iterator<Character>() {
             private int index = start;
             private int count = 0;
@@ -54,6 +54,33 @@ public class CircleString implements Comparable<CircleString>{
 
     @Override
     public int compareTo(@NotNull CircleString o) {
-        return 0;
+        if (o.length != this.length)throw new IllegalArgumentException("Only same length CircleString are comparable");
+        final Iterator<Character> it1 = this.iterator(), it2 = o.iterator();
+        int cmp = Character.compare(it1.next(), it2.next());
+        while (cmp == 0 && it1.hasNext()){
+            cmp = Character.compare(it1.next(), it2.next());
+        }
+        return cmp;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder  = new StringBuilder();
+        final Iterator<Character> characterIterator = this.iterator();
+        while (characterIterator.hasNext()){
+            stringBuilder.append(characterIterator.next());
+        }
+        return stringBuilder.toString();
+    }
+
+    char last() {
+        if (start == 0){
+            return string[length - 1];
+        }
+        return string[start - 1];
+    }
+
+    public int getStart() {
+        return start;
     }
 }
