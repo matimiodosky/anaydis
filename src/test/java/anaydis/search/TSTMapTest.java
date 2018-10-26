@@ -1,9 +1,9 @@
 package anaydis.search;
 
-import anaydis.sort.SorterTest;
+
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class TSTMapTest {
 
