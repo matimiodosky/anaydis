@@ -1,6 +1,7 @@
 package anaydis.search;
 
 import org.jetbrains.annotations.NotNull;
+
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -19,7 +20,8 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         }
 
     }
-    private class Tuple{
+
+    private class Tuple {
         Node node;
         V value;
 
@@ -32,7 +34,7 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
     private Node head;
     private final Comparator<K> comparator;
     private int size;
-    private  final static double rootInsertionProbability = 0 ;
+    private final static double rootInsertionProbability = 0;
 
     public RandomizedTreeMap(Comparator<K> comparator) {
         this.head = null;
@@ -76,15 +78,14 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
     private Tuple put(Node node, K key, V value) {
         if (node == null) {
             size++;
-            return new Tuple(new Node(key, value),null);
+            return new Tuple(new Node(key, value), null);
         }
         int cmp = comparator.compare(key, node.key);
         if (cmp == 0) {
             final V lastFound = node.value;
             node.value = value;
             return new Tuple(node, lastFound);
-        }
-        else if (cmp > 0) {
+        } else if (cmp > 0) {
             final Tuple tuple = put(node.right, key, value);
             node.right = tuple.node;
             return new Tuple(node, tuple.value);
@@ -101,34 +102,34 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
             return new Tuple(new Node(key, value), null);
         }
         int cmp = comparator.compare(key, node.key);
-        if (cmp < 0){
+        if (cmp < 0) {
             final Tuple tuple = rootPut(node.left, key, value);
             node.left = tuple.node;
             node = rotateRight(node);
             return new Tuple(node, tuple.value);
 
-        }else if (cmp > 0){
+        } else if (cmp > 0) {
             final Tuple tuple = rootPut(node.right, key, value);
             node.right = tuple.node;
             node = rotateLeft(node);
             return new Tuple(node, tuple.value);
-        }else {
+        } else {
             final V lastFound = node.value;
             node.value = value;
             return new Tuple(node, lastFound);
         }
     }
 
-    private Node rotateRight(Node node){
-        if (node.left == null)return node;
+    private Node rotateRight(Node node) {
+        if (node.left == null) return node;
         Node result = node.left;
         node.left = result.right;
         result.right = node;
         return result;
     }
 
-    private Node rotateLeft(Node node){
-        if (node.right == null)return node;
+    private Node rotateLeft(Node node) {
+        if (node.right == null) return node;
         Node result = node.right;
         node.right = result.left;
         result.left = node;

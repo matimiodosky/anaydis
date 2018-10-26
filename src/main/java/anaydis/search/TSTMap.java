@@ -2,6 +2,8 @@ package anaydis.search;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 public class TSTMap <V> implements Map<String, V> {
@@ -11,7 +13,7 @@ public class TSTMap <V> implements Map<String, V> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -21,7 +23,22 @@ public class TSTMap <V> implements Map<String, V> {
 
     @Override
     public V get(@NotNull String key) {
-        return null;
+        return get(key, head, 0);
+    }
+
+    private V get(String key, Node node, int level) {
+        if (node == null || level >= key.length())return null;
+        final int cmp = Character.compare(node.c, key.charAt(level));
+        if (cmp < 0){
+            return get(key, node.right, level);
+        }
+        else if (cmp == 0){
+            if (level == key.length() -1)return node.value;
+            return get(key, node.middle, level + 1);
+        }
+        else {
+            return get(key, node.right, level);
+        }
     }
 
     @Override
@@ -35,7 +52,10 @@ public class TSTMap <V> implements Map<String, V> {
             if (node == null) {
                 final Node newNode = new Node(key.charAt(level));
                 newNode.middle = put(key, value, newNode.middle, level + 1);
-                if (level == key.length() -1)newNode.value = value;
+                if (level == key.length() -1){
+                    newNode.value = value;
+                    size++;
+                }
                 return newNode;
             } else {
                 final int cmp = Character.compare(node.c, key.charAt(level));
@@ -43,10 +63,11 @@ public class TSTMap <V> implements Map<String, V> {
                     node.right = put(key, value, node.right, level);
                     return node;
                 } else if (cmp == 0) {
+                    if (level == key.length() - 1)node.value = value;
                     node.middle = put(key, value, node.middle, level + 1);
                     return node;
                 } else {
-                    node.lef = put(key, value, node.middle, level);
+                    node.left = put(key, value, node.middle, level);
                 }
             }
         }
@@ -60,13 +81,24 @@ public class TSTMap <V> implements Map<String, V> {
 
     @Override
     public Iterator<String> keys() {
-        return null;
+        HashSet<String> keys = new HashSet<>();
+        findKeys(head, 0, keys, "");
+        return keys.iterator();
+    }
+
+    private void findKeys(Node node, int level, HashSet<String> keys, String buff) {
+        if (node != null){
+            if (node.value != null)keys.add(buff + node.c);
+            findKeys(node.middle, level+1, keys, buff + node.c);
+            findKeys(node.left, level, keys, buff);
+            findKeys(node.right, level, keys, buff);
+        }
     }
 
     private class Node {
         V value;
         char c;
-        Node lef, middle, right;
+        Node left, middle, right;
 
         Node(char c) {
             this.c = c;
