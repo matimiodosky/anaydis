@@ -2,7 +2,6 @@ package anaydis.search;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -10,6 +9,7 @@ public class TSTMap <V> implements Map<String, V> {
 
     private Node head;
     private int size;
+    private V lastFound;
 
     @Override
     public int size() {
@@ -44,7 +44,7 @@ public class TSTMap <V> implements Map<String, V> {
     @Override
     public V put(@NotNull String key, V value) {
         head =  put(key, value, head, 0);
-        return null;
+        return lastFound;
     }
 
     private Node put(String key, V value, Node node, int level) {
@@ -63,7 +63,10 @@ public class TSTMap <V> implements Map<String, V> {
                     node.right = put(key, value, node.right, level);
                     return node;
                 } else if (cmp == 0) {
-                    if (level == key.length() - 1)node.value = value;
+                    if (level == key.length() - 1) {
+                        lastFound = node.value;
+                        node.value = value;
+                    }
                     node.middle = put(key, value, node.middle, level + 1);
                     return node;
                 } else {

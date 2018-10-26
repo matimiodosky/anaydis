@@ -7,9 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 
-
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 
 public class TSTMapTest {
@@ -51,6 +49,17 @@ public class TSTMapTest {
         }
         assertEquals(5, keys.size());
         assertTrue(keys.containsAll(Arrays.asList("11","12", "13", "21", "22" )));
+    }
+
+    @Test
+    public void test_get_existing_key(){
+        TSTMap<String> tstMap = new TSTMap<>();
+        assertNull(tstMap.put("11", "1"));
+        assertEquals("1", tstMap.get("11"));
+        assertEquals("1", tstMap.put("11", "2"));
+        assertEquals("2", tstMap.get("11"));
+        tstMap.put("21", "1");
+        assertEquals("1", tstMap.get("21"));
     }
 
 }
