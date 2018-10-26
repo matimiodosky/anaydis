@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class BurrowsWheeler implements Compressor {
+
     @Override
     public void encode(@NotNull InputStream input, @NotNull OutputStream output) throws IOException {
         CircleString original = readCircleString(input);
@@ -89,9 +90,8 @@ public class BurrowsWheeler implements Compressor {
         throw new NoSuchElementException();
     }
 
-
     //bits utils
-    public static void writeInt(int value, OutputStream outputStream) throws IOException {
+    private static void writeInt(int value, OutputStream outputStream) throws IOException {
         outputStream.write(value >> 24);
         outputStream.write(value >> 16);
         outputStream.write(value >> 8);
@@ -99,16 +99,10 @@ public class BurrowsWheeler implements Compressor {
         System.out.println();
     }
 
-    public static int readInt(InputStream inputStream) throws IOException {
+    private static int readInt(InputStream inputStream) throws IOException {
         byte[] bytes = new byte[4];
         inputStream.read(bytes);
         return ByteBuffer.wrap(bytes).getInt();
     }
 
-    public static void main(String[] args) throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        writeInt(544, byteArrayOutputStream);
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-        System.out.println(readInt(byteArrayInputStream));
-    }
 }

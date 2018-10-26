@@ -23,10 +23,10 @@ public class Huffman implements Compressor {
         Map<Byte, MyBits> codes = buildCodes(head);
         long tableBytes = writeTable(codes, output);
         long messageBytes = writeMessage(size, codes, input, output);
-        System.out.println("Encoding took " + (double)tableBytes/KILO + " Kb for the table");
-        System.out.println("and " + (double)messageBytes/MEGA + " Mb for the encoded data");
-        System.out.println("while original data was " + (double)size/MEGA + " Mb");
-        System.out.println("The compression rate is:" + (tableBytes + messageBytes)/(double)size);
+//        System.out.println("Encoding took " + (double)tableBytes/KILO + " Kb for the table");
+//        System.out.println("and " + (double)messageBytes/MEGA + " Mb for the encoded data");
+//        System.out.println("while original data was " + (double)size/MEGA + " Mb");
+//        System.out.println("The compression rate is:" + (tableBytes + messageBytes)/(double)size);
     }
 
     /**

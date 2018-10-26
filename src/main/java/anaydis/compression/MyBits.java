@@ -45,7 +45,7 @@ public class MyBits extends Bits {
         stream.write(output.toByteArray());
     }
 
-    public static MyBits buildBits(byte length, byte[] code){
+    static MyBits buildBits(byte length, byte[] code){
         MyBits bits = new MyBits();
         int k = 0;
         for (byte aByte : code) {

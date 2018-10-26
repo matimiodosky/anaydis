@@ -24,19 +24,16 @@ public class RunLengthEncoding implements Compressor {
             else if ((char)read == counting_char){
                 counter++;
             }
-            else{
-                output.write(SCAPE_CHARACTER);
+            else {
                 output.write(counter);
                 output.write(counting_char);
                 counter = 1;
                 counting_char = (char) read;
             }
-
             read = input.read();
         }
 
         if (counter >0){
-            output.write(SCAPE_CHARACTER);
             output.write(counter);
             output.write(counting_char);
         }
@@ -44,20 +41,13 @@ public class RunLengthEncoding implements Compressor {
 
     @Override
     public void decode(@NotNull InputStream input, @NotNull OutputStream output) throws IOException {
-        int read = input.read();
-        while (read != -1){
 
-            if(read == SCAPE_CHARACTER){
-                final int count = input.read();
-                final char c = (char) input.read();
-                for (int i = 0; i < count; i++) {
-                    output.write(c);
-                }
+        while (input.available() > 0){
+            final int count = input.read();
+            final char c = (char) input.read();
+            for (int i = 0; i < count; i++) {
+                output.write(c);
             }
-            else {
-                output.write(read);
-            }
-            read = input.read();
         }
     }
 

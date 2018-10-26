@@ -39,7 +39,7 @@ public class RunLengthEncodingTest{
     @Test
     public void test_multiple_numbers() throws IOException {
         RunLengthEncoding runLengthEncoding = new RunLengthEncoding();
-        String str = "122233333";
+        String str = "1222343333";
 
         ByteArrayInputStream original = new ByteArrayInputStream(str.getBytes());
         ByteArrayOutputStream encoded = new ByteArrayOutputStream();

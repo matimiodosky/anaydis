@@ -19,12 +19,20 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         }
 
     }
+    private class Tuple{
+        Node node;
+        V value;
+
+        Tuple(Node node, V value) {
+            this.node = node;
+            this.value = value;
+        }
+    }
 
     private Node head;
     private final Comparator<K> comparator;
     private int size;
-    private V lastFound;
-    private  final static double rootInsertionProbability = 0.6;
+    private  final static double rootInsertionProbability = 0 ;
 
     public RandomizedTreeMap(Comparator<K> comparator) {
         this.head = null;
@@ -60,48 +68,55 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(@NotNull K key, V value) {
-        head = Math.random() < rootInsertionProbability ? rootPut(head, key, value) : put(head, key, value);
-        return lastFound;
+        Tuple tuple = Math.random() < rootInsertionProbability ? rootPut(head, key, value) : put(head, key, value);
+        head = tuple.node;
+        return tuple.value;
     }
 
-    private Node put(Node node, K key, V value) {
+    private Tuple put(Node node, K key, V value) {
         if (node == null) {
-            lastFound = null;
             size++;
-            return new Node(key, value);
+            return new Tuple(new Node(key, value),null);
         }
         int cmp = comparator.compare(key, node.key);
         if (cmp == 0) {
-            lastFound = node.value;
+            final V lastFound = node.value;
             node.value = value;
+            return new Tuple(node, lastFound);
         }
         else if (cmp > 0) {
-            node.right = put(node.right, key, value);
-            return node;
+            final Tuple tuple = put(node.right, key, value);
+            node.right = tuple.node;
+            return new Tuple(node, tuple.value);
         } else {
-            node.left= put(node.left, key, value);
+            final Tuple tuple = put(node.left, key, value);
+            node.left = tuple.node;
+            return new Tuple(node, tuple.value);
         }
-         return node;
     }
 
-    private Node rootPut(Node node, K key, V value) {
+    private Tuple rootPut(Node node, K key, V value) {
         if (node == null) {
-            lastFound = null;
             size++;
-            return new Node(key, value);
+            return new Tuple(new Node(key, value), null);
         }
         int cmp = comparator.compare(key, node.key);
         if (cmp < 0){
-            node.left = rootPut(node.left, key, value);
+            final Tuple tuple = rootPut(node.left, key, value);
+            node.left = tuple.node;
             node = rotateRight(node);
+            return new Tuple(node, tuple.value);
+
         }else if (cmp > 0){
-            node.right = rootPut(node.right, key, value);
+            final Tuple tuple = rootPut(node.right, key, value);
+            node.right = tuple.node;
             node = rotateLeft(node);
+            return new Tuple(node, tuple.value);
         }else {
-            lastFound = node.value;
+            final V lastFound = node.value;
             node.value = value;
+            return new Tuple(node, lastFound);
         }
-        return node;
     }
 
     private Node rotateRight(Node node){
@@ -111,7 +126,6 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         result.right = node;
         return result;
     }
-
 
     private Node rotateLeft(Node node){
         if (node.right == null)return node;
