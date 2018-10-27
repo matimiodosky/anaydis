@@ -1,15 +1,20 @@
 package anaydis.search;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class TSTMap <V> implements Map<String, V> {
+public class TSTMap<V> implements Map<String, V>{
 
     private Node head;
     private int size;
     private V lastFound;
+
+    public TSTMap() {
+        this.head = null;
+        this.size = 0;
+        lastFound = null;
+    }
 
     @Override
     public int size() {
@@ -18,7 +23,7 @@ public class TSTMap <V> implements Map<String, V> {
 
     @Override
     public boolean containsKey(@NotNull String key) {
-        return false;
+        return get(key) != null;
     }
 
     @Override
@@ -28,82 +33,82 @@ public class TSTMap <V> implements Map<String, V> {
 
     private V get(String key, Node node, int level) {
         if (node == null || level >= key.length())return null;
-        final int cmp = Character.compare(node.c, key.charAt(level));
-        if (cmp < 0){
-            return get(key, node.right, level);
+        if (level == key.length() - 1){
+            if (node.c == key.charAt(level))return node.value;
+            else if (node.c < key.charAt(level))return get(key, node.right, level);
+            else return get(key, node.left, level);
         }
-        else if (cmp == 0){
-            if (level == key.length() -1)return node.value;
-            return get(key, node.middle, level + 1);
-        }
-        else {
-            return get(key, node.right, level);
+        else{
+            if (node.c == key.charAt(level))return get(key, node.middle, level+1);
+            else if (node.c < key.charAt(level))return get(key, node.right, level);
+            else return get(key, node.left, level);
         }
     }
 
     @Override
     public V put(@NotNull String key, V value) {
-        head =  put(key, value, head, 0);
+        head = put(key, value, head, 0);
         return lastFound;
     }
 
     private Node put(String key, V value, Node node, int level) {
-        if (level < key.length()) {
-            if (node == null) {
-                final Node newNode = new Node(key.charAt(level));
-                newNode.middle = put(key, value, newNode.middle, level + 1);
-                if (level == key.length() -1){
-                    newNode.value = value;
-                    size++;
-                }
-                return newNode;
-            } else {
-                final int cmp = Character.compare(node.c, key.charAt(level));
-                if (cmp < 0) {
-                    node.right = put(key, value, node.right, level);
-                    return node;
-                } else if (cmp == 0) {
-                    if (level == key.length() - 1) {
-                        lastFound = node.value;
-                        node.value = value;
-                    }
-                    node.middle = put(key, value, node.middle, level + 1);
-                    return node;
-                } else {
-                    node.left = put(key, value, node.middle, level);
-                }
+        if (node == null){
+            if (level == key.length() - 1){
+                node = new Node(key.charAt(level));
+                node.value = value;
+                size++;
+            }
+            else if(level < key.length()){
+                node = new Node(key.charAt(level));
+                node.middle = put(key, value, node.middle, level + 1);
             }
         }
-        return null;
+        else {
+            if (level == key.length() -1){
+                if (node.c == key.charAt(level)){
+                    lastFound = node.value;
+                    node.value = value;
+                }
+                else if(node.c < key.charAt(level)) node.right = put(key, value, node.right, level);
+                else node.left = put(key, value, node.left, level);
+            }
+            else if(level < key.length()) {
+                if (node.c == key.charAt(level)) node.middle = put(key, value, node.middle, level + 1);
+                else if (node.c < key.charAt(level)) node.right = put(key, value, node.right, level);
+                else node.left = put(key, value, node.left, level);
+            }
+        }
+        return node;
     }
+
 
     @Override
     public void clear() {
-
+        this.head = null;
+        this.size = 0;
     }
 
     @Override
     public Iterator<String> keys() {
-        HashSet<String> keys = new HashSet<>();
-        findKeys(head, 0, keys, "");
-        return keys.iterator();
+        HashSet<String> set = new HashSet<>();
+        keys(head, "", set);
+        return set.iterator();
     }
 
-    private void findKeys(Node node, int level, HashSet<String> keys, String buff) {
-        if (node != null){
-            if (node.value != null)keys.add(buff + node.c);
-            findKeys(node.middle, level+1, keys, buff + node.c);
-            findKeys(node.left, level, keys, buff);
-            findKeys(node.right, level, keys, buff);
-        }
+    private void keys(Node node, String buff, HashSet<String> set) {
+        if (node == null)return;
+        if (node.value !=  null)set.add(buff + node.c);
+        keys(node.left, buff, set);
+        keys(node.right, buff, set);
+        keys(node.middle, buff + node.c, set);
     }
 
-    private class Node {
-        V value;
+    private class Node{
         char c;
-        Node left, middle, right;
+        V value;
+        Node left, right, middle;
 
-        Node(char c) {
+        public Node(char c) {
             this.c = c;
         }
     }

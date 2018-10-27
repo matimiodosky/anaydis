@@ -1,11 +1,10 @@
 package anaydis.search;
 
 
+import anaydis.sort.data.StringDataSetGenerator;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 import static junit.framework.TestCase.*;
 
@@ -27,10 +26,9 @@ public class TSTMapTest {
     public void test_get_and_put(){
         TSTMap<String> tstMap = new TSTMap<>();
         tstMap.put("11", "1");
-        assertEquals("1", tstMap.get("11"));
         tstMap.put("11", "2");
-        assertEquals("2", tstMap.get("11"));
         tstMap.put("21", "1");
+        assertEquals("2", tstMap.get("11"));
         assertEquals("1", tstMap.get("21"));
     }
 
@@ -60,6 +58,50 @@ public class TSTMapTest {
         assertEquals("2", tstMap.get("11"));
         tstMap.put("21", "1");
         assertEquals("1", tstMap.get("21"));
+    }
+
+    @Test
+    public void prefix_keys(){
+        TSTMap<String> tstMap = new TSTMap<>();
+        tstMap.put("11", "1");
+        assertEquals("1", tstMap.get("11"));
+        tstMap.put("112", "2");
+        assertEquals("2", tstMap.get("112"));
+        tstMap.put("21", "1");
+        assertEquals("1", tstMap.get("21"));
+    }
+
+    @Test
+    public void test(){
+        TSTMap<Integer> tstMap = new TSTMap<>();
+        tstMap.put("hi", 1);
+        assertEquals(1, tstMap.get("hi").intValue());
+        tstMap.put("no", 2);
+        assertEquals(2, tstMap.get("no").intValue());
+        tstMap.put("yes", 1);
+        assertEquals(1, tstMap.get("yes").intValue());
+        tstMap.put("nos", 4);
+        assertEquals(4, tstMap.get("nos").intValue());
+        System.out.println();
+    }
+
+    @Test
+    public void test_hdp(){
+        TSTMap<Integer> tstMap = new TSTMap<>();
+        HashMap<String, Integer> map = new HashMap<>();
+
+        StringDataSetGenerator dataSetGenerator = new StringDataSetGenerator();
+        List<String> strings = dataSetGenerator.createRandom(100);
+
+        for (int i = 0; i < strings.size(); i++) {
+            String string = strings.get(i);
+            map.put(string, i);
+            tstMap.put(string, i);
+        }
+        System.out.println();
+        for (String string : strings) {
+            assertEquals(map.get(string), tstMap.get(string));
+        }
     }
 
 }
