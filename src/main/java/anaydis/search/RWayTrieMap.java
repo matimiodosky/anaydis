@@ -14,6 +14,10 @@ public class RWayTrieMap<V> implements Map<String, V> {
             this.nodes = new Object[256];
             this.value = value;
         }
+
+        public Node() {
+            this.nodes = new Object[256];
+        }
     }
 
     private Node head;
@@ -46,34 +50,29 @@ public class RWayTrieMap<V> implements Map<String, V> {
     @Override
     public V put(@NotNull String key, V value) {
         head = put(head, key, value, 0);
-        V lastFound = this.lastFound;
-        this.lastFound = null;
-        keys.add(key);
         return lastFound;
     }
 
     @SuppressWarnings("unchecked")
     private Node put(Node node, String key, V value, int level) {
-        if (node == null) {
-            Node result = new Node(value);
-            if (level < key.length()) {
-                final int next = key.charAt(level);
-                result.nodes[next]= put((Node) result.nodes[next], key, value, level + 1);
+        if (node == null){
+            node = new Node();
+            if (level < key.length()){
+                node.nodes[key.charAt(level)] = put((Node) node.nodes[key.charAt(level)], key, value, level + 1);
             }else {
-                size ++;
+               node.value =value;
+               size++;
             }
-            return result;
-        }
-        if (level == key.length()){
-            lastFound = node.value;
-            node.value = value;
-            return node;
         }
         else {
-            final int next = key.charAt(level);
-            node.nodes[next] =  put((Node) node.nodes[next], key, value, level+1);
-            return node;
+            if (level < key.length()){
+                node.nodes[key.charAt(level)] = put((Node) node.nodes[key.charAt(level)], key, value, level+1);
+            }else {
+                lastFound = node.value;
+                node.value = value;
+            }
         }
+        return node;
     }
 
     @Override
@@ -85,7 +84,45 @@ public class RWayTrieMap<V> implements Map<String, V> {
 
     @Override
     public Iterator<String> keys() {
-        return keys.iterator();
+        List<String> list = new ArrayList<>();
+        keys(head, "", list);
+        return list.iterator();
+    }
+
+    @SuppressWarnings("unchecked")
+    private void keys(Node node, String buff, List<String> list) {
+        if (node != null){
+            if (node.value != null)list.add(buff);
+            for (int i = 0; i < node.nodes.length; i++) {
+                keys((Node) node.nodes[i], buff + (char) i, list);
+            }
+        }
+    }
+
+    public List<String> autoComplete(String key){
+        List<String> list = new ArrayList<>();
+        autoComplete(key ,head,0,  "", list);
+        return list;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void autoComplete(String key, Node node,int level,  String buff, List<String> list) {
+        if (node != null){
+            if (level < key.length()){
+                autoComplete(key, (Node) node.nodes[key.charAt(level)], level +1, buff + key.charAt(level), list);
+            }
+            else {
+                if (node.value != null){
+                    list.add(buff);
+                }
+                else {
+                    System.out.println();
+                    for (int i = 0; i < node.nodes.length; i++) {
+                        autoComplete(key, (Node)node.nodes[i], level + 1, buff + (char) i, list);
+                    }
+                }
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

@@ -72,20 +72,6 @@ public class TSTMapTest {
     }
 
     @Test
-    public void test(){
-        TSTMap<Integer> tstMap = new TSTMap<>();
-        tstMap.put("hi", 1);
-        assertEquals(1, tstMap.get("hi").intValue());
-        tstMap.put("no", 2);
-        assertEquals(2, tstMap.get("no").intValue());
-        tstMap.put("yes", 1);
-        assertEquals(1, tstMap.get("yes").intValue());
-        tstMap.put("nos", 4);
-        assertEquals(4, tstMap.get("nos").intValue());
-        System.out.println();
-    }
-
-    @Test
     public void test_hdp(){
         TSTMap<Integer> tstMap = new TSTMap<>();
         HashMap<String, Integer> map = new HashMap<>();
@@ -104,4 +90,16 @@ public class TSTMapTest {
         }
     }
 
+    @Test
+    public void test_auto_complete(){
+        TSTMap<Object> tstMap = new TSTMap<>();
+        tstMap.put("mariano", null);
+        tstMap.put("mateo", null);
+        tstMap.put("paula", null);
+        tstMap.put("patricio", null);
+        tstMap.put("pamela", null);
+        assertTrue(tstMap.autocomplete("ma").containsAll(Arrays.asList("mariano" ,"mateo")));
+        assertTrue(tstMap.autocomplete("pa").containsAll(Arrays.asList("patricio" ,"paula", "pamela")));
+
+    }
 }

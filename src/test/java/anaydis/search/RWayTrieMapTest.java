@@ -1,8 +1,12 @@
 package anaydis.search;
 
+import junit.framework.TestCase;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -47,12 +51,19 @@ public class RWayTrieMapTest  {
 
     @Test
     public void test_iterator(){
-        RWayTrieMap<String> stringRWayTrieMap = new RWayTrieMap<>();
-        stringRWayTrieMap.put("hola", "hola");
-        Iterator<String> iterator = stringRWayTrieMap.keys();
-        assertTrue(iterator.hasNext());
-        assertEquals("hola", iterator.next());
-        assertTrue(!iterator.hasNext());
+        RWayTrieMap<Integer> tstMap = new RWayTrieMap<>();
+        tstMap.put("11", 1);
+        tstMap.put("12", 2);
+        tstMap.put("13", 3);
+        tstMap.put("21", 4);
+        tstMap.put("22", 5);
+        Iterator<String> iterator = tstMap.keys();
+        HashSet<String> keys  = new HashSet<>();
+        while (iterator.hasNext()){
+            keys.add(iterator.next());
+        }
+        TestCase.assertEquals(5, keys.size());
+        TestCase.assertTrue(keys.containsAll(Arrays.asList("11","12", "13", "21", "22" )));
     }
 
     @Test
@@ -61,5 +72,18 @@ public class RWayTrieMapTest  {
         assertTrue(!stringRWayTrieMap.containsKey("hola"));
         stringRWayTrieMap.put("hola", "hola");
         assertTrue(stringRWayTrieMap.containsKey("hola"));
+    }
+
+    @Test
+    public void test_auto_complete(){
+        RWayTrieMap<Object> tstMap = new RWayTrieMap<>();
+        tstMap.put("mariano", "mariano");
+        tstMap.put("mateo", "mateo");
+        tstMap.put("paula", "paula");
+        tstMap.put("patricio", "patricio");
+        tstMap.put("pamela", "pamela");
+        TestCase.assertTrue(tstMap.autoComplete("ma").containsAll(Arrays.asList("mariano" ,"mateo")));
+        TestCase.assertTrue(tstMap.autoComplete("pa").containsAll(Arrays.asList("patricio" ,"paula", "pamela")));
+
     }
 }

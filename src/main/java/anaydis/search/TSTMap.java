@@ -1,8 +1,10 @@
 package anaydis.search;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 public class TSTMap<V> implements Map<String, V>{
 
@@ -81,7 +83,6 @@ public class TSTMap<V> implements Map<String, V>{
         return node;
     }
 
-
     @Override
     public void clear() {
         this.head = null;
@@ -103,12 +104,34 @@ public class TSTMap<V> implements Map<String, V>{
         keys(node.middle, buff + node.c, set);
     }
 
+    public List<String> autocomplete(String key){
+        List<String> list = new ArrayList<>();
+        autocomplete(key, head,"",  0, list);
+        return list;
+    }
+
+    private void autocomplete(String key, Node node, String buff, int level, List<String> list) {
+        if (node != null){
+            if (level < key.length()){
+                char c = key.charAt(level);
+                if (node.c == c) autocomplete(key, node.middle,buff + c,  level + 1, list);
+                else if (node.c < c) autocomplete(key, node.right,buff, level, list);
+                else autocomplete(key, node.left,buff, level, list);
+            }else {
+                if (node.middle == null)list.add(buff + node.c);
+                autocomplete(key, node.middle, buff + node.c,level + 1,  list);
+                autocomplete(key, node.left, buff, level, list);
+                autocomplete(key, node.right, buff, level, list);
+            }
+        }
+    }
+
     private class Node{
         char c;
         V value;
         Node left, right, middle;
 
-        public Node(char c) {
+        Node(char c) {
             this.c = c;
         }
     }
