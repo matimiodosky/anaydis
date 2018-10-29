@@ -20,14 +20,12 @@ public class MoveToFrontTest {
     @Test
     public void test() throws IOException {
         MoveToFront moveToFront = new MoveToFront();
-
         InputStream inputStream = new ByteArrayInputStream("mamaamasa".getBytes());
         ByteArrayOutputStream encoded = new ByteArrayOutputStream();
         moveToFront.encode(inputStream, encoded);
         ByteArrayOutputStream decoded = new ByteArrayOutputStream();
         moveToFront.decode(new ByteArrayInputStream(encoded.toByteArray()), decoded);
         assertArrayEquals(decoded.toByteArray(), "mamaamasa".getBytes());
-
     }
 
 }

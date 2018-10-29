@@ -1,4 +1,5 @@
 package anaydis.compression;
+import anaydis.Bits.MyBits;
 import anaydis.bit.Bits;
 import anaydis.bit.BitsOutputStream;
 import org.jetbrains.annotations.NotNull;
@@ -6,7 +7,7 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.*;
 
-import static anaydis.compression.MyBits.buildBits;
+import static anaydis.Bits.MyBits.buildBits;
 
 public class Huffman implements Compressor {
 

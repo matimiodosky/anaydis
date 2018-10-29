@@ -40,7 +40,6 @@ public abstract class AbstractMapTest {
     @Test
     public void test_iterator(){
         Map<String , String> map = getNewInstance();
-        map.put("11", "1");
         map.put("12", "2");
         map.put("13", "3");
         map.put("21", "4");
@@ -50,8 +49,8 @@ public abstract class AbstractMapTest {
         while (iterator.hasNext()){
             keys.add(iterator.next());
         }
-        assertEquals(5, keys.size());
-        assertTrue(keys.containsAll(Arrays.asList("11","12", "13", "21", "22" )));
+        assertEquals(4, keys.size());
+        assertTrue(keys.containsAll(Arrays.asList("12", "13", "21", "22" )));
     }
 
     @Test
@@ -76,24 +75,6 @@ public abstract class AbstractMapTest {
         assertEquals("1", map.get("21"));
     }
 
-    @Test
-    public void test_hdp(){
-        Map<String, String> myMap = getNewInstance();
-        HashMap<String, String> map = new HashMap<>();
-
-        StringDataSetGenerator dataSetGenerator = new StringDataSetGenerator();
-        List<String> strings = dataSetGenerator.createRandom(100);
-
-        for (int i = 0; i < strings.size(); i++) {
-            String string = strings.get(i);
-            map.put(string, "" + i);
-            myMap.put(string, "" + i);
-        }
-        System.out.println();
-        for (String string : strings) {
-            assertEquals(map.get(string), myMap.get(string));
-        }
-    }
 
     @Test
     public void test_contains(){

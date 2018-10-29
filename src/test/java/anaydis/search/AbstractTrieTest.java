@@ -88,25 +88,6 @@ public abstract class AbstractTrieTest {
     }
 
     @Test
-    public void test_hdp(){
-        Trie<String> trie = getNewInstance();
-        HashMap<String, String> map = new HashMap<>();
-
-        StringDataSetGenerator dataSetGenerator = new StringDataSetGenerator();
-        List<String> strings = dataSetGenerator.createRandom(100);
-
-        for (int i = 0; i < strings.size(); i++) {
-            String string = strings.get(i);
-            map.put(string, "" + i);
-            trie.put(string, "" + i);
-        }
-        System.out.println();
-        for (String string : strings) {
-            assertEquals(map.get(string), trie.get(string));
-        }
-    }
-
-    @Test
     public void test_contains(){
         Trie<String> map = getNewInstance();
         map.put("11", "1");
