@@ -34,7 +34,7 @@ public class BurrowsWheelerTest {
                 "driving off the spleen and regulating the circulation.  Whenever I\n" +
                 "find myself growing grim about the mouth; whenever it is a damp,\n" +
                 "from deliberately stepping into the street, and methodically knocking\n" +
-                "people's hats off--then, I account it high time to get to sea as soon\n" +
+                "people's hats off--then, I account it high time to getIndex to sea as soon\n" +
                 "as I can.  This is my substitute for pistol and ball.  With a\n" +
                 "philosophical flourish Cato throws himself upon his sword; I quietly\n" +
                 "take to the ship.  There is nothing surprising in this.  If they but\n" +
@@ -52,7 +52,7 @@ public class BurrowsWheelerTest {
                 "the town, stand thousands upon thousands of mortal men fixed in ocean\n" +
                 "reveries.  Some leaning against the spiles; some seated upon the\n" +
                 "pier-heads; some looking over the bulwarks of ships from China; some\n" +
-                "high aloft in the rigging, as if striving to get a still better\n" +
+                "high aloft in the rigging, as if striving to getIndex a still better\n" +
                 "seaward peep.  But these are all landsmen; of week days pent up in\n" +
                 "lath and plaster--tied to counters, nailed to benches, clinched to\n" +
                 "desks.  How then is this?  Are the green fields gone?  What do they\n" +
@@ -60,7 +60,7 @@ public class BurrowsWheelerTest {
                 "\n But look! here come more crowds, pacing straight for the water, and\n" +
                 "seemingly bound for a dive.  Strange!  Nothing will content them but\n" +
                 "the extremest limit of the land; loitering under the shady lee of\n" +
-                "yonder warehouses will not suffice.  No.  They must get just as nigh\n" +
+                "yonder warehouses will not suffice.  No.  They must getIndex just as nigh\n" +
                 "the water as they possibly can without falling in.  And there they\n" +
                 "stand--miles of them--leagues.  Inlanders all, they come from lanes\n" +
                 "and alleys, streets and avenues--north, east, south, and west.  Yet\n" +
