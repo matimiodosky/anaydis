@@ -2,6 +2,7 @@ package anaydis.search;
 
 import anaydis.Bits.MyBits;
 
+import anaydis.Bits.MyLongBits;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -33,10 +34,10 @@ public class BinaryTrieMap<V> implements Map<String, V> {
 
     @Override
     public V get(@NotNull String key) {
-        return get(new MyBits(key), head, 0);
+        return get(new MyLongBits(key), head, 0);
     }
 
-    private V get(MyBits bits, Node node, int level) {
+    private V get(MyLongBits bits, Node node, int level) {
         if (node == null || level > bits.getLength())return null;
         if (level == bits.getLength())return node.value;
         Node next = bits.bitAt(level) ? node.right : node.left;
@@ -45,12 +46,11 @@ public class BinaryTrieMap<V> implements Map<String, V> {
 
     @Override
     public V put(@NotNull String key, V value) {
-        if (key.length() > 4) throw new IllegalArgumentException("Length not supported.");
-        head =  put(new MyBits(key), value, head, 0);
+        head =  put(new MyLongBits(key), value, head, 0);
         return lastFound;
     }
 
-    private Node put(MyBits bits, V value, Node node, int level) {
+    private Node put(MyLongBits bits, V value, Node node, int level) {
         if (node == null){
             node = new Node();
             if (level == bits.getLength()){
@@ -84,11 +84,11 @@ public class BinaryTrieMap<V> implements Map<String, V> {
     @Override
     public Iterator<String> keys() {
        List<String> list = new ArrayList<>();
-       find(head, new MyBits(), list);
+       find(head, new MyLongBits(), list);
        return list.iterator();
     }
 
-    private void find(Node node, MyBits buff, List<String> list) {
+    private void find(Node node, MyLongBits buff, List<String> list) {
         if (node != null){
             if (node.value != null){
                 list.add(buff.getString());
