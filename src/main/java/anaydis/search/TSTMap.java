@@ -15,7 +15,7 @@ public class TSTMap<V> implements Map<String, V>, Trie<V>{
     @Nullable
     private V lastFound;
 
-    TSTMap() {
+    public TSTMap() {
         this.head = null;
         this.size = 0;
         lastFound = null;
