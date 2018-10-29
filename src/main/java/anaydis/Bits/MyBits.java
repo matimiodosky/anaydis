@@ -15,22 +15,6 @@ public class MyBits extends Bits {
     private int value;
     private byte length;
 
-    public MyBits(String string) {
-        for (int i = 0; i < string.length(); i++) {
-            for (int j = 0; j < Byte.SIZE; j++) {
-                add(bitAt((byte) string.charAt(i), j));
-            }
-        }
-    }
-
-    private boolean bitAt(byte c, int j) {
-        return (c >> j & 1) == 1;
-    }
-
-    public boolean bitAt(int i){
-       return  (value >> i & 1) == 1;
-    }
-
     public MyBits(){}
 
     @NotNull
@@ -85,24 +69,5 @@ public class MyBits extends Bits {
     @Override
     public int hashCode() {
         return Objects.hash(value, length);
-    }
-
-    public String getString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < 4; i++) {
-            byte c = (byte) (value >> (i * Byte.SIZE));
-            if (c != 0)stringBuilder.append((char)c);
-        }
-        return stringBuilder.toString();
-    }
-
-    @Override public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        int aux = 1 << length;
-        while(aux > 1) {
-            aux = aux >> 1;
-            builder.append((value & aux) == 0 ? "0":"1");
-        }
-        return builder.toString();
     }
 }
