@@ -72,13 +72,13 @@ abstract class AbstractSorter implements Sorter, ObservableSorter {
     }
 
     <T> void copy(@NotNull List<T> destination, int i, @NotNull List<T> origin, int j) {
-        notifyCopy(i, j, true);
+        notifyCopy(i, j);
         destination.add(origin.get(j));
     }
 
-    void notifyCopy(int from, int to, boolean toAux) {
+    void notifyCopy(int from, int to) {
         for (SorterListener sorterListener : sorterListeners) {
-            sorterListener.copy(from, to, toAux);
+            sorterListener.copy(from, to, true);
         }
     }
 

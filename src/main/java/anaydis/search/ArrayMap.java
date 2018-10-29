@@ -1,6 +1,7 @@
 package anaydis.search;
-import anaydis.bit.Bits;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -8,7 +9,9 @@ import java.util.List;
 
 public class ArrayMap<K, V> implements Map<K, V> {
 
+    @NotNull
     private final List<K> keys;
+    @NotNull
     private final List<V> values;
     private final Comparator<K> comparator;
 
@@ -39,12 +42,14 @@ public class ArrayMap<K, V> implements Map<K, V> {
     }
 
 
+    @Nullable
     @Override
     public V get(@NotNull K key) {
         final int index = find(key, 0, keys.size() - 1);
         return index >= 0 ? values.get(index) : null;
     }
 
+    @Nullable
     @Override
     public V put(@NotNull K key, V value) {
         final int index = find(key, 0, keys.size()  -1);
@@ -63,6 +68,7 @@ public class ArrayMap<K, V> implements Map<K, V> {
         values.clear();
     }
 
+    @NotNull
     @Override
     public Iterator<K> keys() {
         return keys.iterator();

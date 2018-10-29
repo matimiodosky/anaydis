@@ -1,6 +1,7 @@
 package anaydis.immutable;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -15,7 +16,6 @@ public class BinaryTree<K, V> implements Map<K, V> {
             this.key = key;
             this.value = value;
         }
-
     }
 
     private Node head;
@@ -33,7 +33,6 @@ public class BinaryTree<K, V> implements Map<K, V> {
         this.comparator = comparator;
     }
 
-
     @Override
     public int size() {
         return size;
@@ -44,7 +43,7 @@ public class BinaryTree<K, V> implements Map<K, V> {
         return containsKey(key, head);
     }
 
-    private boolean containsKey(K key, Node node) {
+    private boolean containsKey(K key, @Nullable Node node) {
 
         if(node == null)return false;
         final int cmp = comparator.compare(key, node.key);
@@ -55,13 +54,15 @@ public class BinaryTree<K, V> implements Map<K, V> {
 
     }
 
+    @Nullable
     @Override
     public V get(@NotNull K key) {
         return get(key, head);
 
     }
 
-    private V get(K key, Node node) {
+    @Nullable
+    private V get(K key, @Nullable Node node) {
         if(node == null)return null;
         final int cmp = comparator.compare(key, node.key);
         if (cmp == 0){
@@ -70,12 +71,13 @@ public class BinaryTree<K, V> implements Map<K, V> {
         return cmp > 0? get(key, node.right):get(key, node.left);
     }
 
+    @NotNull
     @Override
     public Map<K, V> put(@NotNull K key, V value) {
         return new BinaryTree<>(put(key, value, head), comparator, addedInLastPut? size+1 : size);
     }
 
-    private Node put(K key, V value, Node node) {
+    private Node put(K key, V value, @Nullable Node node) {
 
         Node newHead;
 
@@ -104,6 +106,7 @@ public class BinaryTree<K, V> implements Map<K, V> {
     }
 
 
+    @Nullable
     @Override
     public Iterator<K> keys() {
         Stack<Node> stack = new Stack<>();
@@ -131,6 +134,4 @@ public class BinaryTree<K, V> implements Map<K, V> {
             }
         };
     }
-
-
 }

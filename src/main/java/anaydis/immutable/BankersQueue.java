@@ -3,14 +3,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class BankersQueue<T> implements Queue<T> {
 
-    private List<T> in, out;
+    private final List<T> in;
+    private final List<T> out;
 
     public BankersQueue(@NotNull List<T> in, @NotNull List<T> out){
         this.in = in;
         this.out = out;
     }
 
-    public BankersQueue() {
+    BankersQueue() {
         this.in = List.nil();
         this.out = List.nil();
     }

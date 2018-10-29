@@ -2,6 +2,8 @@ package anaydis.compression;
 
 import anaydis.bit.Bits;
 import anaydis.bit.BitsOutputStream;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -11,6 +13,7 @@ public class MyBits extends Bits {
     private int value;
     private byte length;
 
+    @NotNull
     public MyBits add(boolean bit) {
         value = (value << 1) | (bit ? 1 : 0);
         length++;
@@ -21,6 +24,7 @@ public class MyBits extends Bits {
 
     public int getLength() { return length; }
 
+    @NotNull
     public MyBits copy() {
         final MyBits bits = new MyBits();
         bits.value = value;
@@ -28,23 +32,14 @@ public class MyBits extends Bits {
         return bits;
     }
 
-    @Override public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        int aux = 1 << length;
-        while(aux > 1) {
-            aux = aux >> 1;
-            builder.append((value & aux) == 0 ? "0":"1");
-        }
-        return builder.toString();
-    }
-
-    public void writeInto(OutputStream stream) throws IOException {
+    public void writeInto(@NotNull OutputStream stream) throws IOException {
         stream.write(length);
         final BitsOutputStream output = new BitsOutputStream();
         output.write(this);
         stream.write(output.toByteArray());
     }
 
+    @NotNull
     static MyBits buildBits(byte length, byte[] code){
         MyBits bits = new MyBits();
         int k = 0;
@@ -59,7 +54,7 @@ public class MyBits extends Bits {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MyBits myBits = (MyBits) o;

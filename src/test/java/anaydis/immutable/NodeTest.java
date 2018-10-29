@@ -35,4 +35,19 @@ public class NodeTest{
         assertEquals("a", reversed.tail().tail().head());
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void test_nil_head(){
+        Node.NIL.head();
+    }
+
+    @Test (expected = IllegalStateException.class)
+    public void test_nil_tail(){
+        Node.NIL.tail();
+    }
+
+    @Test (expected = IllegalStateException.class)
+    public void test_nil_reverse(){
+        Node.NIL.reverse();
+    }
+
 }

@@ -23,10 +23,10 @@ public class Huffman implements Compressor {
         Map<Byte, MyBits> codes = buildCodes(head);
         long tableBytes = writeTable(codes, output);
         long messageBytes = writeMessage(size, codes, input, output);
-//        System.out.println("Encoding took " + (double)tableBytes/KILO + " Kb for the table");
-//        System.out.println("and " + (double)messageBytes/MEGA + " Mb for the encoded data");
-//        System.out.println("while original data was " + (double)size/MEGA + " Mb");
-//        System.out.println("The compression rate is:" + (tableBytes + messageBytes)/(double)size);
+        System.out.println("Encoding took " + (double)tableBytes/KILO + " Kb for the table");
+        System.out.println("and " + (double)messageBytes/MEGA + " Mb for the encoded data");
+        System.out.println("while original data was " + (double)size/MEGA + " Mb");
+        System.out.println("The compression rate is:" + (tableBytes + messageBytes)/(double)size);
     }
 
     /**
@@ -34,6 +34,7 @@ public class Huffman implements Compressor {
      [amount of symbols]{[symbol](byte)[length of code](byte)[code](amount of bytes specified)
      [length of message](int)[codes](amount of bytes needed)
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void decode(@NotNull InputStream input, @NotNull OutputStream output) throws IOException {
         Map<MyBits, Byte> symbols = buildTable(input);
@@ -49,10 +50,10 @@ public class Huffman implements Compressor {
             }
             output.write(symbol);
         }
-
     }
 
     //encoding utils
+    @NotNull
     private Map<Byte, Integer> countSymbols(InputStream input) throws IOException {
 
         HashMap<Byte, Integer> counts = new HashMap<>();
@@ -69,14 +70,13 @@ public class Huffman implements Compressor {
         return counts;
     }
 
+    @SuppressWarnings("ConstantConditions")
     private Node buildTree(Map<Byte, Integer> counts) {
         //build simple nodes
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(o -> o.size));
-
         for (Byte symbol : counts.keySet()) {
             priorityQueue.add(new Node(symbol, counts.get(symbol)));
         }
-
         //build complex nodes
         while (priorityQueue.size() > 1) {
             Node left = priorityQueue.poll(), right = priorityQueue.poll();
@@ -85,6 +85,7 @@ public class Huffman implements Compressor {
         return priorityQueue.poll();
     }
 
+    @NotNull
     private Map<Byte, MyBits> buildCodes(Node tree) {
         HashMap<Byte, MyBits> codes = new HashMap<>();
         Stack<Node> stack = new Stack<>();
@@ -123,7 +124,7 @@ public class Huffman implements Compressor {
         return bytes;
     }
 
-    private long writeMessage(int size, Map<Byte, MyBits> codes, InputStream inputStream, OutputStream outputStream) throws IOException {
+    private long writeMessage(int size, @NotNull Map<Byte, MyBits> codes, InputStream inputStream, @NotNull OutputStream outputStream) throws IOException {
         long bytes = 0;
         writeInt(size, outputStream);
         bytes += 4;
@@ -140,7 +141,7 @@ public class Huffman implements Compressor {
         return bytes;
     }
 
-    public static void writeInt(int value, OutputStream outputStream) throws IOException {
+    static void writeInt(int value, OutputStream outputStream) throws IOException {
         outputStream.write(value >> 24);
         outputStream.write(value >> 16);
         outputStream.write(value >> 8);
@@ -148,13 +149,15 @@ public class Huffman implements Compressor {
         System.out.println();
     }
 
-    public static int readInt(InputStream inputStream) throws IOException {
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    static int readInt(InputStream inputStream) throws IOException {
         byte[] bytes = new byte[4];
         inputStream.read(bytes);
         return ByteBuffer.wrap(bytes).getInt();
     }
 
     //decoding utils
+    @NotNull
     private Map<MyBits, Byte> buildTable(InputStream input) throws IOException {
         byte amountOfSymbols = (byte) input.read();
         Map<MyBits, Byte> symbols = new HashMap<>();
@@ -172,6 +175,7 @@ public class Huffman implements Compressor {
 
     }
 
+    @NotNull
     private LinkedList<Boolean> buildBitsQueue(InputStream input) throws IOException {
         LinkedList<Boolean> bits = new LinkedList<>();
         byte read = (byte) input.read();
@@ -192,7 +196,7 @@ public class Huffman implements Compressor {
 
     //private node class
     private class Node {
-        int size;
+        final int size;
         Byte symbol;
         Node left, right;
         MyBits code;

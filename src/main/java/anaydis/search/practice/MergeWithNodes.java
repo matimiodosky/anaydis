@@ -1,11 +1,15 @@
 package anaydis.search.practice;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Comparator;
 
-public class MergeWithNodes {
+class MergeWithNodes {
 
     private static class Node<T>{
         final T elem;
+        @Nullable
         Node<T> next;
 
         Node(T elem) {
@@ -13,7 +17,8 @@ public class MergeWithNodes {
         }
     }
 
-    private static <T> Node<T> sort(Node<T> node, Comparator<T> comparator){
+    @Nullable
+    private static <T> Node<T> sort(@Nullable Node<T> node, @NotNull Comparator<T> comparator){
         Node<T> mid = node, j = node;
         while (j!= null && j.next!=null && j.next.next != null){
             mid = mid.next;
@@ -26,7 +31,8 @@ public class MergeWithNodes {
         return merge(node, head2, comparator);
     }
 
-    private static <T> Node<T> merge(Node<T> head1, Node<T> head2, Comparator<T> comparator) {
+    @Nullable
+    private static <T> Node<T> merge(Node<T> head1, Node<T> head2, @NotNull Comparator<T> comparator) {
         Node<T> i = head1, j = head2, result = new Node<>(null), current = result;
         while (i != null && j != null){
             if (comparator.compare(i.elem, j.elem) < 0){

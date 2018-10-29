@@ -3,7 +3,6 @@ package anaydis.compression;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -57,6 +56,7 @@ public class BurrowsWheeler implements Compressor {
     }
 
     //decoding utils
+    @NotNull
     private byte[] readString(InputStream inputStream) throws IOException {
         int read;
         byte[] chars = new byte[inputStream.available() - Integer.BYTES ];
@@ -68,7 +68,8 @@ public class BurrowsWheeler implements Compressor {
         return chars;
     }
 
-    private int[] getTVector(byte[] string){
+    @NotNull
+    private int[] getTVector(@NotNull byte[] string){
         byte[] sorted = Arrays.copyOf(string, string.length);
         byte[] stringCopy = Arrays.copyOf(string, string.length);
         Arrays.sort(sorted);
@@ -101,6 +102,7 @@ public class BurrowsWheeler implements Compressor {
 
     private static int readInt(InputStream inputStream) throws IOException {
         byte[] bytes = new byte[4];
+        //noinspection ResultOfMethodCallIgnored
         inputStream.read(bytes);
         return ByteBuffer.wrap(bytes).getInt();
     }

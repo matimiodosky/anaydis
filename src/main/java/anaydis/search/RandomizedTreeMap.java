@@ -1,6 +1,7 @@
 package anaydis.search;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -18,12 +19,11 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
             this.key = key;
             this.value = value;
         }
-
     }
 
     private class Tuple {
-        Node node;
-        V value;
+        final Node node;
+        final V value;
 
         Tuple(Node node, V value) {
             this.node = node;
@@ -31,10 +31,11 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         }
     }
 
+    @Nullable
     private Node head;
     private final Comparator<K> comparator;
     private int size;
-    private final static double rootInsertionProbability = 0;
+    private final static double rootInsertionProbability = 0.6;
 
     public RandomizedTreeMap(Comparator<K> comparator) {
         this.head = null;
@@ -56,12 +57,14 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         return get(head, key) != null;
     }
 
+    @Nullable
     @Override
     public V get(@NotNull K key) {
         return get(head, key);
     }
 
-    private V get(Node node, K key) {
+    @Nullable
+    private V get(@Nullable Node node, K key) {
         if (node == null) return null;
         final int cmp = comparator.compare(node.key, key);
         if (cmp == 0) return node.value;
@@ -75,7 +78,7 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         return tuple.value;
     }
 
-    private Tuple put(Node node, K key, V value) {
+    private Tuple put(@Nullable Node node, K key, V value) {
         if (node == null) {
             size++;
             return new Tuple(new Node(key, value), null);
@@ -96,7 +99,7 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         }
     }
 
-    private Tuple rootPut(Node node, K key, V value) {
+    private Tuple rootPut(@Nullable Node node, K key, V value) {
         if (node == null) {
             size++;
             return new Tuple(new Node(key, value), null);
@@ -142,6 +145,7 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
         size = 0;
     }
 
+    @Nullable
     @Override
     public Iterator<K> keys() {
 
@@ -149,16 +153,14 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
 
         return new Iterator<K>() {
 
+            @Nullable
             Node current = head;
-
             @Override
             public boolean hasNext() {
                 return !(current == null && stack.isEmpty());
             }
-
             @Override
             public K next() {
-
                 if (!hasNext()) throw new NoSuchElementException("No more keys in map");
                 while (current != null) {
                     stack.push(current);
@@ -170,5 +172,4 @@ public class RandomizedTreeMap<K, V> implements Map<K, V> {
             }
         };
     }
-
 }

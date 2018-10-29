@@ -1,34 +1,31 @@
 package anaydis.search;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RWayTrieMap<V> implements Map<String, V> {
+public class RWayTrieMap<V> implements Map<String, V> , Trie<V> {
 
     private class Node {
+        @NotNull
         final Object[] nodes;
         V value;
 
-        Node( V value) {
-            this.nodes = new Object[256];
-            this.value = value;
-        }
-
-        public Node() {
-            this.nodes = new Object[256];
+        Node() {
+            this.nodes = new Object[Character.MAX_VALUE];
         }
     }
 
+    @Nullable
     private Node head;
     private int size;
-    private final List<String> keys;
     private V lastFound;
 
     public RWayTrieMap() {
         this.head = null;
         this.size = 0;
-        this.keys = new ArrayList<>();
     }
 
     @Override
@@ -41,6 +38,7 @@ public class RWayTrieMap<V> implements Map<String, V> {
         return find(head, key, 0) != null;
     }
 
+    @Nullable
     @Override
     public V get(@NotNull String key) {
         Node result = find(head, key, 0);
@@ -53,8 +51,9 @@ public class RWayTrieMap<V> implements Map<String, V> {
         return lastFound;
     }
 
+    @Nullable
     @SuppressWarnings("unchecked")
-    private Node put(Node node, String key, V value, int level) {
+    private Node put(@Nullable Node node, @NotNull String key, V value, int level) {
         if (node == null){
             node = new Node();
             if (level < key.length()){
@@ -79,9 +78,9 @@ public class RWayTrieMap<V> implements Map<String, V> {
     public void clear() {
         size = 0;
         head = null;
-        keys.clear();
     }
 
+    @NotNull
     @Override
     public Iterator<String> keys() {
         List<String> list = new ArrayList<>();
@@ -90,7 +89,7 @@ public class RWayTrieMap<V> implements Map<String, V> {
     }
 
     @SuppressWarnings("unchecked")
-    private void keys(Node node, String buff, List<String> list) {
+    private void keys(@Nullable Node node, String buff, @NotNull List<String> list) {
         if (node != null){
             if (node.value != null)list.add(buff);
             for (int i = 0; i < node.nodes.length; i++) {
@@ -99,14 +98,15 @@ public class RWayTrieMap<V> implements Map<String, V> {
         }
     }
 
-    public List<String> autoComplete(String key){
+    @NotNull
+    public List<String> autocomplete(@NotNull String key){
         List<String> list = new ArrayList<>();
         autoComplete(key ,head,0,  "", list);
         return list;
     }
 
     @SuppressWarnings("unchecked")
-    private void autoComplete(String key, Node node,int level,  String buff, List<String> list) {
+    private void autoComplete(@NotNull String key, @Nullable Node node, int level, String buff, @NotNull List<String> list) {
         if (node != null){
             if (level < key.length()){
                 autoComplete(key, (Node) node.nodes[key.charAt(level)], level +1, buff + key.charAt(level), list);
@@ -125,8 +125,9 @@ public class RWayTrieMap<V> implements Map<String, V> {
         }
     }
 
+    @Nullable
     @SuppressWarnings("unchecked")
-    private Node find(Node node, String key, int level){
+    private Node find(@Nullable Node node, @NotNull String key, int level){
         if (node == null)return null;
         if (level == key.length())return node;
         final int next = (int) key.charAt(level);

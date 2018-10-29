@@ -1,18 +1,21 @@
 package anaydis.search;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-public class TSTMap<V> implements Map<String, V>{
+public class TSTMap<V> implements Map<String, V>, Trie<V>{
 
+    @Nullable
     private Node head;
     private int size;
+    @Nullable
     private V lastFound;
 
-    public TSTMap() {
+    TSTMap() {
         this.head = null;
         this.size = 0;
         lastFound = null;
@@ -28,12 +31,14 @@ public class TSTMap<V> implements Map<String, V>{
         return get(key) != null;
     }
 
+    @Nullable
     @Override
     public V get(@NotNull String key) {
         return get(key, head, 0);
     }
 
-    private V get(String key, Node node, int level) {
+    @Nullable
+    private V get(@NotNull String key, @Nullable Node node, int level) {
         if (node == null || level >= key.length())return null;
         if (level == key.length() - 1){
             if (node.c == key.charAt(level))return node.value;
@@ -47,13 +52,15 @@ public class TSTMap<V> implements Map<String, V>{
         }
     }
 
+    @Nullable
     @Override
     public V put(@NotNull String key, V value) {
         head = put(key, value, head, 0);
         return lastFound;
     }
 
-    private Node put(String key, V value, Node node, int level) {
+    @Nullable
+    private Node put(@NotNull String key, V value, @Nullable Node node, int level) {
         if (node == null){
             if (level == key.length() - 1){
                 node = new Node(key.charAt(level));
@@ -89,6 +96,7 @@ public class TSTMap<V> implements Map<String, V>{
         this.size = 0;
     }
 
+    @NotNull
     @Override
     public Iterator<String> keys() {
         HashSet<String> set = new HashSet<>();
@@ -96,7 +104,7 @@ public class TSTMap<V> implements Map<String, V>{
         return set.iterator();
     }
 
-    private void keys(Node node, String buff, HashSet<String> set) {
+    private void keys(@Nullable Node node, String buff, @NotNull HashSet<String> set) {
         if (node == null)return;
         if (node.value !=  null)set.add(buff + node.c);
         keys(node.left, buff, set);
@@ -104,13 +112,14 @@ public class TSTMap<V> implements Map<String, V>{
         keys(node.middle, buff + node.c, set);
     }
 
-    public List<String> autocomplete(String key){
+    @NotNull
+    public List<String> autocomplete(@NotNull String key){
         List<String> list = new ArrayList<>();
         autocomplete(key, head,"",  0, list);
         return list;
     }
 
-    private void autocomplete(String key, Node node, String buff, int level, List<String> list) {
+    private void autocomplete(@NotNull String key, @Nullable Node node, String buff, int level, @NotNull List<String> list) {
         if (node != null){
             if (level < key.length()){
                 char c = key.charAt(level);
@@ -127,8 +136,9 @@ public class TSTMap<V> implements Map<String, V>{
     }
 
     private class Node{
-        char c;
+        final char c;
         V value;
+        @Nullable
         Node left, right, middle;
 
         Node(char c) {

@@ -3,8 +3,9 @@ package anaydis.compression;
 import org.jetbrains.annotations.NotNull;
 import java.util.Iterator;
 
-public class CircleString implements Comparable<CircleString>{
+class CircleString implements Comparable<CircleString>{
 
+    @NotNull
     final private char[] string;
     final private int start;
     final private int length;
@@ -22,6 +23,7 @@ public class CircleString implements Comparable<CircleString>{
         this.length = string.length;
     }
 
+    @NotNull
     CircleString shift(){
         int newStart = start - 1;
         if (newStart == -1) newStart = length - 1;
@@ -32,6 +34,7 @@ public class CircleString implements Comparable<CircleString>{
         return length;
     }
 
+    @NotNull
     Iterator<Character> iterator(){
         return new Iterator<Character>() {
             private int index = start;
@@ -63,6 +66,7 @@ public class CircleString implements Comparable<CircleString>{
         return cmp;
     }
 
+    @NotNull
     @Override
     public String toString() {
         final StringBuilder stringBuilder  = new StringBuilder();
@@ -80,7 +84,7 @@ public class CircleString implements Comparable<CircleString>{
         return string[start - 1];
     }
 
-    public int getStart() {
+    int getStart() {
         return start;
     }
 }

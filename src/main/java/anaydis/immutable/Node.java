@@ -5,7 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class Node<T> implements List<T> {
 
-    public static List NIL  = new List() {
+    static final List NIL  = new List() {
+        @NotNull
         @Override
         public Object head() {
             throw new IllegalStateException();
