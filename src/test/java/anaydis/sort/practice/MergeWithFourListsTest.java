@@ -1,6 +1,6 @@
 package anaydis.sort.practice;
-import anaydis.sort.practice.Final.MergeWithFourLists;
-import anaydis.sort.practice.Final.Node;
+import anaydis.practice.Final.MergeWithFourLists;
+import anaydis.practice.Final.Node;
 import org.junit.Test;
 
 import java.util.Comparator;

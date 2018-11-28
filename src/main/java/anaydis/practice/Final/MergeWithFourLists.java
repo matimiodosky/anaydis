@@ -1,4 +1,4 @@
-package anaydis.sort.practice.Final;
+package anaydis.practice.Final;
 
 import java.util.Comparator;
 

@@ -1,4 +1,4 @@
-package anaydis.sort.practice.Final;
+package anaydis.practice.Final;
 
 public class Node<T>{
     T elem;
