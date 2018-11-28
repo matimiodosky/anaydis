@@ -16,12 +16,18 @@ public class BinaryTree<K, V> implements Map<K, V> {
             this.key = key;
             this.value = value;
         }
+
+        Node(K key, V value, Node left, Node right) {
+            this.key = key;
+            this.value = value;
+            this.left = left;
+            this.right = right;
+        }
     }
 
-    private Node head;
-    private int size;
+    private final Node head;
+    private final int size;
     private final Comparator<K> comparator;
-    private boolean addedInLastPut;
 
     private BinaryTree(Node head, Comparator<K> comparator, int size) {
         this.comparator = comparator;
@@ -31,6 +37,8 @@ public class BinaryTree<K, V> implements Map<K, V> {
 
     public BinaryTree(Comparator<K> comparator){
         this.comparator = comparator;
+        this.head = null;
+        this.size = 0;
     }
 
     @Override
@@ -74,36 +82,35 @@ public class BinaryTree<K, V> implements Map<K, V> {
     @NotNull
     @Override
     public Map<K, V> put(@NotNull K key, V value) {
-        return new BinaryTree<>(put(key, value, head), comparator, addedInLastPut? size+1 : size);
+        Result result = put(key, value, head);
+        return new BinaryTree<>(result.node, comparator, result.size);
     }
 
-    private Node put(K key, V value, @Nullable Node node) {
-
-        Node newHead;
-
-        if (node == null){
-            addedInLastPut = true;
-            return new Node(key, value);
+    private Result put(K key, V value, @Nullable Node node) {
+        if(node == null)return new Result(new Node(key, value), size+1);
+        int cmp = comparator.compare(node.key, key);
+        if (cmp>0){
+            final Result r = put(key, value, node.left);
+            return new Result(new Node(node.key, node.value, r.node, node.right), r.size);
         }
-        final int cmp = comparator.compare(key, node.key);
-
-        if (cmp == 0){
-            addedInLastPut = false;
-            return new Node(key, value);
+        else if(cmp == 0){
+            return new Result(new Node(key, value), size);
         }
-        if (cmp < 0){
-            newHead = new Node(node.key, node.value);
-            newHead.left = put(key, value, node.left);
-            newHead.right = node.right;
-            return newHead;
-        }
-        else {
-            newHead = new Node(node.key, node.value);
-            newHead.right = put(key, value, node.right);
-            newHead.left = node.left;
-            return newHead;
+        else{
+            final Result r = put(key, value, node.right);
+            return new Result(new Node(node.key, node.value, node.left, r.node), r.size);
         }
     }
+
+    private class Result{
+        Node node;
+        int size;
+        Result(Node node, int size) {
+            this.node = node;
+            this.size = size;
+        }
+    }
+
 
 
     @Nullable

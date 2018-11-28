@@ -1,6 +1,8 @@
 package anaydis.immutable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+
 public class BankersQueue<T> implements Queue<T> {
 
     private final List<T> in;
@@ -36,4 +38,5 @@ public class BankersQueue<T> implements Queue<T> {
     public boolean isEmpty() {
         return in.isEmpty() && out.isEmpty();
     }
+
 }

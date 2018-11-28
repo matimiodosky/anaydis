@@ -147,7 +147,6 @@ public class Huffman implements Compressor {
         outputStream.write(value >> 16);
         outputStream.write(value >> 8);
         outputStream.write(value);
-        System.out.println();
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -181,9 +180,6 @@ public class Huffman implements Compressor {
         LinkedList<Boolean> bits = new LinkedList<>();
         byte read = (byte) input.read();
         while (input.available() > 0){
-            if (bits.size() == 2840){
-                System.out.println();
-            }
             for (byte i = Byte.SIZE - 1; i >= 0; i--) {
                 bits.addLast(((read >> i) & 1) == 1);
             }

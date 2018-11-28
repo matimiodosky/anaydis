@@ -30,12 +30,8 @@ public class TopDownMergeSorterTest extends SorterTest {
         list.addAll(listA);
         list.addAll(listB);
 
-        System.out.println(list);
-
         TopDownMergeSorter s = new TopDownMergeSorter();
         s.merge(Comparator.naturalOrder(), list, 0, 99 , list.size() - 1);
-
-        System.out.println(list);
 
         for (int i = 0; i < list.size() - 1; i++) {
             assertTrue(list.get(i) <= list.get(i + 1));

@@ -39,7 +39,6 @@ public class Node<T> implements List<T> {
         this.tail = tail;
     }
 
-
     @Override
     public T head() {
         return elem;

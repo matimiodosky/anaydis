@@ -107,4 +107,11 @@ public class BurrowsWheeler implements Compressor {
         return ByteBuffer.wrap(bytes).getInt();
     }
 
+
+    public static void main(String[] args) throws IOException {
+        InputStream inputStream= new ByteArrayInputStream("CHUBACA".getBytes());
+        new BurrowsWheeler().encode(inputStream, new ByteArrayOutputStream());
+
+    }
+
 }
